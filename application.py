@@ -25,9 +25,7 @@ api = swagger.docs(Api(application), apiVersion='0.1')
 jwt = JWT(application, authenticate, identity) # /auth
 
 
-@application.before_first_request
-def create_tables():
-	db.create_all()
+
 
 
 api.add_resource(Users, '/register')
