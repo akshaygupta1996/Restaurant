@@ -85,7 +85,7 @@ class Users(Resource):
 		except:
 			return {'message': "An Error Occured"}, 500
 
-		return user.json(), 201
+		return {'status': True}, 201
 		
 
 class LoginUsers(Resource):
