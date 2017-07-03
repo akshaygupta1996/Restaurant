@@ -1,6 +1,7 @@
 from db import db
 import datetime
 from flask_restful_swagger import swagger
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
 @swagger.model
 class UsersModel(db.Model):

@@ -6,6 +6,8 @@ from resources.address import UserAddress, UsersAddress
 from resources.menucat import MenuCategory, MenuCategoryEdit
 from resources.menuitem import MenuItem, MenuItemEdit
 
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+
 from security import authenticate, identity
 from flask_jwt import JWT
 
@@ -22,7 +24,8 @@ application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 application.secret_key = 'akshay7272'
 api = Api(application)
 api = swagger.docs(Api(application), apiVersion='0.1')
-jwt = JWT(application, authenticate, identity) # /auth
+jwt = JWTManager(application)
+# jwt = JWT(application, authenticate, identity) # /auth
 
 
 

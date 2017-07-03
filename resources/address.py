@@ -2,6 +2,8 @@ from flask_restful import Resource, reqparse
 from flask import request
 from models.address import UsersAddressModel
 from flask_restful_swagger import swagger
+from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+
 
 class UsersAddress(Resource):
 
@@ -68,6 +70,7 @@ class UsersAddress(Resource):
 				"dataType": "int"
 			}
 		])
+	@jwt_required
 	def get(self, user_id):
 
 		return {'address': [address.json() for address in UsersAddressModel.query.filter_by(user_id = user_id).all()]}
