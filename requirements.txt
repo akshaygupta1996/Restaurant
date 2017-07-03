@@ -2,6 +2,7 @@ aniso8601==1.2.1
 click==6.7
 Flask==0.12.2
 Flask-JWT==0.3.2
+Flask-JWT-Extended==2.4.1
 Flask-RESTful==0.3.6
 flask-restful-swagger==0.19
 Flask-SQLAlchemy==2.2
@@ -12,7 +13,7 @@ PyJWT==1.4.2
 PyMySQL==0.7.11
 python-dateutil==2.6.0
 pytz==2017.2
+simplekv==0.10.0
 six==1.10.0
 SQLAlchemy==1.1.11
 Werkzeug==0.12.2
-uwsgi
