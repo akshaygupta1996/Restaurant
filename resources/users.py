@@ -73,10 +73,13 @@ class Users(Resource):
 		data = Users.parser.parse_args()
 
 		if UsersModel.find_by_email(data['email']):
-			return {'error': "Email Already Regsitered"}, 400
+			return {'data':{'status': False,
+							'message': "Email Already Regsitered"}}, 201
 
 		if UsersModel.find_by_phone(data['phone_number']):
-			return {'error': "Phone Number Already Registered"}, 400
+			return {'data':{'status': False,
+							'message': "Phone Number Already Registered"}}, 201
+			# return {'error': "Phone Number Already Registered"}, 400
 
 		user = UsersModel(data['fname'], data['lname'], data['email'], data['phone_number'], data['password'])
 
@@ -85,7 +88,7 @@ class Users(Resource):
 		except:
 			return {'message': "An Error Occured"}, 500
 
-		return {'status': True}, 201
+		return {'data':{'status': True}}, 201
 		
 
 class LoginUsers(Resource):
