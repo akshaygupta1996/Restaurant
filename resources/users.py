@@ -100,7 +100,7 @@ class Users(Resource):
 			except:
 				return {'message': "An Error Occured"}, 500
 
-			return {'data':{'status': True}}, 201
+			return {'data':{'status': True, 'message': "Registration Successful"}}, 201
 
 
 		else:
@@ -126,7 +126,7 @@ class Users(Resource):
 					except:
 						return {'message': "An Error Occured"}, 500
 
-					return {'data':{'status': True}}, 201
+					return {'data':{'status': True, 'message': "Registration Successful"}}, 201
 			else:
 				return {'data': {'status': False,
 								'message': "Reference Code Invalid"}}

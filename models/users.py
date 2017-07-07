@@ -34,7 +34,7 @@ class UsersModel(db.Model):
 		self.register_ref_no = register_ref_no
 
 	def json(self):
-		return { 'id': self.id, 'fname': self.fname, 'lname': self.lname, 'email': self.email, 'phone_number': self.phone_number}
+		return { 'id': self.id, 'fname': self.fname, 'lname': self.lname, 'email': self.email, 'phone_number': self.phone_number, 'refcode': self.refcode}
 
 	@classmethod
 	def find_by_email(cls, email):
