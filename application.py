@@ -16,9 +16,6 @@ from flask_jwt import JWT
 
 application = Flask(__name__)
 
-@application.before_first_request
-def create_tables():
-	db.create_all()
 
 
 
