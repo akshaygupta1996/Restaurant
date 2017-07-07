@@ -165,7 +165,7 @@ class LoginUsers(Resource):
 				if user_email:
 					if user_email.password == password:
 						# return user_email.json()
-						ret = {'data':{'access_token': create_access_token(identity=user_email.id),
+						ret = {'status': True,'user':{'access_token': create_access_token(identity=user_email.id),
 								 'user_id': user_email.id,
 								 'fname': user_email.fname,
 								 'lname': user_email.lname,
@@ -177,7 +177,7 @@ class LoginUsers(Resource):
 				if user_phone:
 					if user_phone.password == password:
 						# return user_phone.json()
-						ret = {'data': {'access_token': create_access_token(identity=user_phone.id),
+						ret = {'status': True, 'user':{'access_token': create_access_token(identity=user_phone.id),
 								 'user_id': user_phone.id,
 								 'fname': user_phone.fname,
 								 'lname': user_phone.lname,
@@ -185,6 +185,6 @@ class LoginUsers(Resource):
 								 'phone_number': user_phone.phone_number}}
    					  	return make_response(jsonify(ret), 200)
 		
-			return {'error': 'Authentication Error'}, 404
+			return {'status': False}, 200
 
 
