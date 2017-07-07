@@ -47,7 +47,18 @@ class UsersAddress(Resource):
 				"required": True,
 				"dataType": "String"
 			}
-		])
+		],
+		responseClass = "UsersAddressModel",
+		responseMessages=[
+            {
+              "code": 201,
+              "message": "Address Added Successfully"
+			},
+            {
+              "code": 500,
+              "message": "Error in server"
+            }
+          ])
 	
 	def post(self, user_id):
 
@@ -56,9 +67,9 @@ class UsersAddress(Resource):
 		try:
 			address.save_to_db()
 		except:
-			return {"status": False, 'message': 'Error Occured'}, 500
+			return {'data':{"status": False}}, 500
 		
-		return {'status': True, 'data': address.json()}, 201
+		return {'data':{'status': True, 'address': address.json()}}, 201
 
 	@swagger.operation(
 		notes='Getting List of Addresses of a user',
@@ -70,10 +81,10 @@ class UsersAddress(Resource):
 				"dataType": "int"
 			}
 		])
-	@jwt_required
+	
 	def get(self, user_id):
 
-		return {'address': [address.json() for address in UsersAddressModel.query.filter_by(user_id = user_id).all()]}
+		return {'data':{'address': [address.json() for address in UsersAddressModel.query.filter_by(user_id = user_id).all()]}}
 
 class UserAddress(Resource):
 
@@ -128,8 +139,8 @@ class UserAddress(Resource):
 			address.instructions = data['instructions']
 			address.address = data['address']
 			address.save_to_db()
-			return {'status': True, 'data': address.json()}
-		return {'status': False, 'error': "Invalid Id"}
+			return {'data':{'status': True, 'address': address.json()}}
+		return {'data':{'status': False}}
 
 	@swagger.operation(
 		notes='Delete An address',
@@ -147,9 +158,9 @@ class UserAddress(Resource):
 		address = UsersAddressModel.find_by_id(id)
 		if address:
 			address.delete_from_db()
-			return {'status': True}
+			return {'data':{'status': True}}
 
-		return {'status': False, 'message': 'Address Not Deleted or Found'}
+		return {'data':{'status': False}}
 
 
 

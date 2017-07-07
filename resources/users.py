@@ -2,6 +2,7 @@ from flask_restful import Resource, reqparse
 from flask import request, jsonify,make_response
 from models.users import UsersModel
 from flask_restful_swagger import swagger
+from db import db
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
 
@@ -28,6 +29,10 @@ class Users(Resource):
 		type = str,
 		required = True,
 		help = "Password Required")
+	parser.add_argument('register_ref',
+		type=str,
+		required = True,
+		help = "If Users does not provide Ref Code then pass 0")
 	@swagger.operation(
 		notes = "Get All Registered Users",
 		nickname='GET')
@@ -65,6 +70,11 @@ class Users(Resource):
 				"name": "password",
 				"required": True,
 				"dataType": "String"
+			},
+			{
+				"name": "register_ref",
+				"required": True,
+				"dataType": "String"
 			}
 
 		])
@@ -81,14 +91,45 @@ class Users(Resource):
 							'message': "Phone Number Already Registered"}}, 201
 			# return {'error': "Phone Number Already Registered"}, 400
 
-		user = UsersModel(data['fname'], data['lname'], data['email'], data['phone_number'], data['password'])
+		if data['register_ref'] == "0":
+			
+			refcode = UsersModel.getRefCode(data['fname'])
+			user = UsersModel(data['fname'], data['lname'], data['email'], data['phone_number'], data['password'],refcode, data['register_ref'],0)
+			try:
+				user.save_to_db()
+			except:
+				return {'message': "An Error Occured"}, 500
 
-		try:
-			user.save_to_db()
-		except:
-			return {'message': "An Error Occured"}, 500
+			return {'data':{'status': True}}, 201
 
-		return {'data':{'status': True}}, 201
+
+		else:
+			user_ref =  UsersModel.find_by_refcode(data['register_ref'])
+			if user_ref is not None:
+				no = user_ref.register_ref_no
+				if no == 2:
+					return {'data': {'status': False,
+								'message': "User Crossed his/her Limit"}}
+					#refernece code cannot be added. User crosseds the limit
+
+				elif no < 2:
+					no = no + 1
+					user_ref.register_ref_no = no
+					try:
+						db.session.commit()
+					except:
+						return {'message': "An Error Occured"}, 500
+					refcode = UsersModel.getRefCode(data['fname'])
+					user = UsersModel(data['fname'], data['lname'], data['email'], data['phone_number'], data['password'],refcode, data['register_ref'],0)
+					try:
+						user.save_to_db()
+					except:
+						return {'message': "An Error Occured"}, 500
+
+					return {'data':{'status': True}}, 201
+			else:
+				return {'data': {'status': False,
+								'message': "Reference Code Invalid"}}
 		
 
 class LoginUsers(Resource):
