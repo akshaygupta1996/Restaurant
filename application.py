@@ -18,16 +18,16 @@ from flask_jwt import JWT
 application = Flask(__name__)
 
 
-@application.before_first_request
-def create_tables():
-	db.create_all()
+# @application.before_first_request
+# def create_tables():
+# 	db.create_all()
 
 
 #application.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 
 # 'mysql+pymysql://flaskdemo:flaskdemo@flaskdemo.cwsaehb7ywmi.us-east-1.rds.amazonaws.com:3306/flaskdemo'
-application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/kmnorth'
-# application.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://kmnorth7272:kmnorth7272@kmnorth-cluster.cluster-cjyjj0rgxaie.us-west-2.rds.amazonaws.com:3306/kmnorth'
+# application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/kmnorth'
+application.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://kmnorth7272:kmnorth7272@kmnorth-cluster.cluster-cjyjj0rgxaie.us-west-2.rds.amazonaws.com:3306/kmnorth'
 application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 application.secret_key = 'akshay7272'
 api = Api(application)
