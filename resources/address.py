@@ -97,7 +97,7 @@ class UserAddress(Resource):
 	parser.add_argument('address',
 			type = str,
 			required = True,
-			help = "Address is Required")
+			help = "Address is Requ ired")
 	parser.add_argument('instructions',
 			type=str,
 			required = True,

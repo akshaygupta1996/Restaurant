@@ -72,9 +72,9 @@ class MenuItem(Resource):
 		try:
 			item.save_to_db()
 		except:
-			return {"status": False, 'message': 'Error Occured'}, 500
+			return {'data':{"status": False, 'message': 'Error Occured'}}, 500
 		
-		return {'status': True, 'data': item.json()}, 201
+		return {'data':{'status': True, 'item': item.json()}}, 201
 
 
 
@@ -116,8 +116,8 @@ class MenuItemEdit(Resource):
 
 		item = MenuItemModel.find_by_id(id)
 		if item:
-			return {'status': True, 'data': item.json()}
-		return {'status': False}
+			return {'data':{'status': True, 'item': item.json()}}
+		return {'data':{'status': False}}
 
 	@swagger.operation(
 		notes='Edit a Menu Item',
@@ -143,9 +143,9 @@ class MenuItemEdit(Resource):
 				item.half_price = None
 			item.cat_id = data['cat_id']
 			item.save_to_db()
-			return {'status': True, 'data': item.json()}
+			return {'data':{'status': True, 'item': item.json()}}
 
-		return {'status': False}
+		return {'data':{'status': False}}
 
 	@swagger.operation(
 		notes='Delete a Menu Item',
@@ -163,8 +163,8 @@ class MenuItemEdit(Resource):
 		item = MenuItemModel.find_by_id(id)
 		if item:
 			item.delete_from_db()
-			return {'status': True}
-		return {'status': False}
+			return {'data':{'status': True}}
+		return {'data':{'status': False}}
 		
 
 

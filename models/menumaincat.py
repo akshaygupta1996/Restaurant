@@ -3,23 +3,20 @@ import datetime
 from flask_restful_swagger import swagger
 
 @swagger.model
-class MenuCategoryModel(db.Model):
+class MenuMainCategoryModel(db.Model):
 
-	__tablename__ = 'menucat'
+	__tablename__ = 'menumaincat'
 
 	id = db.Column(db.Integer, primary_key = True)
 	cat_name = db.Column(db.String(50), nullable=False)
-	main_cat_id = db.Column(db.Integer, db.ForeignKey('menumaincat.id'))
-	menu_items = db.relationship('MenuItemModel', lazy = 'dynamic')
-	maincategory = db.relationship('MenuMainCategoryModel')
+	menu_cat = db.relationship('MenuCategoryModel', lazy = 'dynamic')
 
-	def __init__(self, main_cat_id, cat_name):
+	def __init__(self, cat_name):
 		self.cat_name = cat_name
-		self.main_cat_id = main_cat_id
 
 
 	def json(self):
-		return { 'id': self.id, 'cat_name': self.cat_name, 'main_cat_id':self.main_cat_id}
+		return { 'id': self.id, 'cat_name': self.cat_name}
 
 	def save_to_db(self):
 
