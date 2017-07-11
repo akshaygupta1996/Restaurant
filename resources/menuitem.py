@@ -31,10 +31,10 @@ class MenuItem(Resource):
 			type = int,
 			required = True,
 			help = "Category To which this item belongs is required")
-	# parser.add_argument('image_data',
-	# 		type = str,
-	# 		required = True,
-	# 		help = "Image Data is Required")
+	parser.add_argument('image_data',
+			type = str,
+			required = True,
+			help = "Image Data is Required")
 
 	@swagger.operation(
 		notes='Adding A Menu Item',
@@ -73,10 +73,10 @@ class MenuItem(Resource):
 		data = MenuItem.parser.parse_args()
 
 
-		# imgdata = base64.b64decode(data['image_data'])
-		# filename = "abcd.jpg"
-		# with open(filename, 'wb') as f:
-		# 	f.write(imgdata)
+		imgdata = base64.b64decode(data['image_data'])
+		filename = "abcd.jpg"
+		with open(filename, 'wb') as f:
+			f.write(imgdata)
 		# image_data = bytes(data['image_data'], encoding="ascii")
 		# im = Image.open(BytesIO(base64.b64decode(image_data)))
 		# im.save(os.path.join('uploads/', data['name']))
