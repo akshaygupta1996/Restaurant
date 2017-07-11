@@ -5,6 +5,7 @@ from flask_restful_swagger import swagger
 from flask_restful_swagger import swagger
 from io import BytesIO
 from PIL import Image
+import base64
 
 
 
@@ -72,9 +73,13 @@ class MenuItem(Resource):
 		data = MenuItem.parser.parse_args()
 
 
-		image_data = bytes(data['image_data'], encoding="ascii")
-		im = Image.open(BytesIO(base64.b64decode(image_data)))
-		im.save(os.path.join('uploads/', data['name']))
+		imgdata = base64.b64decode(data['image_data'])
+		filename = "abcd.jpg"
+		with open(filename, 'wb') as f:
+			f.write(immgdata)
+		# image_data = bytes(data['image_data'], encoding="ascii")
+		# im = Image.open(BytesIO(base64.b64decode(image_data)))
+		# im.save(os.path.join('uploads/', data['name']))
 
 		if data['half_price'] is not None:
 			item = MenuItemModel(data['name'], data['description'], data['full_price'], data['half_price'], data['cat_id'])
