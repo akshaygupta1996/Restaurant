@@ -27,7 +27,7 @@ class MenuItemModel(db.Model):
 
 
 	def json(self):
-		return {'id': self.id, 'name': self.name, 'description': self.description, 'image_path': self.image_path, 'full_price': self.full_price, 'half_price': self.half_price, 'cat_id': self.cat_id}
+		return {'id': self.id, 'name': self.name, 'description': self.description, 'full_price': self.full_price, 'half_price': self.half_price, 'cat_id': self.cat_id}
 
 	def save_to_db(self):
 		db.session.add(self)
