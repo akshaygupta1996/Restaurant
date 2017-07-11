@@ -31,6 +31,10 @@ class MenuItem(Resource):
 			type = int,
 			required = True,
 			help = "Category To which this item belongs is required")
+	parser.add_argument('image_data',
+			type = str,
+			required = True,
+			help = "Image Data is Required")
 
 	@swagger.operation(
 		notes='Adding A Menu Item',
@@ -70,10 +74,8 @@ class MenuItem(Resource):
 
 
 		image_data = bytes(data['image_data'], encoding="ascii")
-        im = Image.open(BytesIO(base64.b64decode(image_data)))
-        im.save(os.path.join(app.config['UPLOAD_FOLDER'], data['name']))
-        
-        
+		im = Image.open(BytesIO(base64.b64decode(image_data)))
+		im.save(os.path.join(app.config['UPLOAD_FOLDER'], data['name']))
 
 		if data['half_price'] is not None:
 			item = MenuItemModel(data['name'], data['description'], data['full_price'], data['half_price'], data['cat_id'])
