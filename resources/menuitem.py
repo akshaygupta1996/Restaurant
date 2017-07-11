@@ -74,7 +74,7 @@ class MenuItem(Resource):
 
 
 		imgdata = base64.b64decode(data['image_data'])
-		filename = "abcd.jpg"
+		filename = "abcd.png"
 		with open(filename, 'wb') as f:
 			f.write(imgdata)
 		# image_data = bytes(data['image_data'], encoding="ascii")
