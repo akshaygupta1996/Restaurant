@@ -3,6 +3,10 @@ from flask import request
 from models.menuitem import MenuItemModel
 from flask_restful_swagger import swagger
 from flask_restful_swagger import swagger
+from io import BytesIO
+from PIL import Image
+
+app.config['UPLOAD_FOLDER'] = 'uploads/'
 
 
 class MenuItem(Resource):
@@ -63,6 +67,13 @@ class MenuItem(Resource):
 	def post(self):
 
 		data = MenuItem.parser.parse_args()
+
+
+		image_data = bytes(data['image_data'], encoding="ascii")
+        im = Image.open(BytesIO(base64.b64decode(image_data)))
+        im.save(os.path.join(app.config['UPLOAD_FOLDER'], data['name']))
+        
+        
 
 		if data['half_price'] is not None:
 			item = MenuItemModel(data['name'], data['description'], data['full_price'], data['half_price'], data['cat_id'])
