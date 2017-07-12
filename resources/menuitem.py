@@ -6,6 +6,11 @@ from flask_restful_swagger import swagger
 from io import BytesIO
 from PIL import Image
 import base64
+import boto
+from boto.s3.key import Key
+
+keyId = "AKIAJJXJV7B4XYBX2VHQ"
+sKeyId= "p4XCjQbXhRxfo9dbSr48l0R69XyBevm0OcyRkkFC"
 
 
 
@@ -74,9 +79,20 @@ class MenuItem(Resource):
 
 
 		imgdata = base64.b64decode(data['image_data'])
-		filename = "abcd.png"
-		with open(filename, 'wb') as f:
-			f.write(imgdata)
+
+
+		fileName="abcd.txt"
+		bucketName="kmnorth"
+		file = open(fileName)
+		conn = boto.connect_s3(keyId,sKeyId)
+		bucket = conn.get_bucket(bucketName)
+		k = Key(bucket)
+		k.key = fileName
+		k.set_metadata('Content-Type', 'image/jpeg')
+		k.set_contents_from_file(imgdata)
+		# filename = "images/abcd.png"
+		# with open(filename, 'wb') as f:
+		# 	f.write(imgdata)
 		# image_data = bytes(data['image_data'], encoding="ascii")
 		# im = Image.open(BytesIO(base64.b64decode(image_data)))
 		# im.save(os.path.join('uploads/', data['name']))
