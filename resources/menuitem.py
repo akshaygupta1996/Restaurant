@@ -81,9 +81,8 @@ class MenuItem(Resource):
 		imgdata = base64.b64decode(data['image_data'])
 
 
-		fileName="abcd.txt"
+		fileName="image1.jpeg"
 		bucketName="kmnorth"
-		file = open(fileName)
 		conn = boto.connect_s3(keyId,sKeyId)
 		bucket = conn.get_bucket(bucketName)
 		k = Key(bucket)
