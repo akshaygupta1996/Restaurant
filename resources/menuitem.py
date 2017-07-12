@@ -78,7 +78,7 @@ class MenuItem(Resource):
 		data = MenuItem.parser.parse_args()
 
 
-		imgdata = base64.b64decode(data['image_data'])
+		# imgdata = base64.b64decode(data['image_data'])
 
 
 		fileName="image1.jpeg"
@@ -87,8 +87,9 @@ class MenuItem(Resource):
 		bucket = conn.get_bucket(bucketName)
 		k = Key(bucket)
 		k.key = fileName
+		k.set_contents_from_string(base64.b64decode(data['image_data']))
 		k.set_metadata('Content-Type', 'image/jpeg')
-		k.set_contents_from_file(imgdata)
+		# fk.set_contents_from_file(imgdata)
 		# filename = "images/abcd.png"
 		# with open(filename, 'wb') as f:
 		# 	f.write(imgdata)
