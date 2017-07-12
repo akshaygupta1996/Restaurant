@@ -83,7 +83,7 @@ class MenuItem(Resource):
 
 		fileName="image1.jpeg"
 		bucketName="kmnorth"
-		conn = boto.connect_s3(keyId,sKeyId)
+		conn = boto.connect_s3(keyId,sKeyId, host='s3.ca-central-1.amazonaws.com')
 		bucket = conn.get_bucket(bucketName)
 		k = Key(bucket)
 		k.key = fileName
