@@ -87,7 +87,7 @@ class MenuItem(Resource):
 		bucket = conn.get_bucket(bucketName)
 		k = Key(bucket)
 		k.key = fileName
-		k.set_contents_from_string(base64.b64decode(data['image_data']))
+		k.set_contents_from_string(data['image_data'])
 		k.set_metadata('Content-Type', 'image/jpeg')
 		# fk.set_contents_from_file(imgdata)
 		# filename = "images/abcd.png"
