@@ -36,10 +36,10 @@ class MenuItem(Resource):
 			type = int,
 			required = True,
 			help = "Category To which this item belongs is required")
-	parser.add_argument('image_data',
-			type = str,
-			required = True,
-			help = "Image Data is Required")
+	# parser.add_argument('image_data',
+	# 		type = str,
+	# 		required = True,
+	# 		help = "Image Data is Required")
 
 	@swagger.operation(
 		notes='Adding A Menu Item',
@@ -81,14 +81,14 @@ class MenuItem(Resource):
 		# imgdata = base64.b64decode(data['image_data'])
 
 
-		fileName="image1.jpeg"
-		bucketName="kmnorth"
-		conn = boto.connect_s3(keyId,sKeyId, host='s3.ap-south-1.amazonaws.com')
-		bucket = conn.get_bucket(bucketName)
-		k = Key(bucket)
-		k.key = fileName
-		k.set_contents_from_string(data['image_data'])
-		k.set_metadata('Content-Type', 'image/jpeg')
+		# fileName="image1.jpeg"
+		# bucketName="kmnorth"
+		# conn = boto.connect_s3(keyId,sKeyId, host='s3.ap-south-1.amazonaws.com')
+		# bucket = conn.get_bucket(bucketName)
+		# k = Key(bucket)
+		# k.key = fileName
+		# k.set_contents_from_string(data['image_data'])
+		# k.set_metadata('Content-Type', 'image/jpeg')
 		# fk.set_contents_from_file(imgdata)
 		# filename = "images/abcd.png"
 		# with open(filename, 'wb') as f:
