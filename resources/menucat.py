@@ -94,4 +94,22 @@ class MenuCategoryEdit(Resource):
 		return {'data': {'status':True, 'items': [item.json() for item in MenuItemModel.query.filter_by(cat_id = cat_id).all()]}}
 
 
+	@swagger.operation(
+		notes='Delete a Menu Sub Category',
+		nickname='DELETE',
+		parameters=[
+			{
+				"name": "cat_id",
+				"required": True,
+				"dataType": "int"
+			}]
+		)
+
+	def delete(self, cat_id):
+
+		item = MenuCategoryModel.find_by_id(cat_id)
+		if item:
+			item.delete_from_db()
+			return {'data':{'status': True}}
+		return {'data':{'status': False}}
 

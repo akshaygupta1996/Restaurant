@@ -36,6 +36,16 @@ class MenuItem(Resource):
 			type = int,
 			required = True,
 			help = "Category To which this item belongs is required")
+	parser.add_argument('choice',
+			type=bool,
+			required = True,
+			help = "Choice Exists/Not Exists Required")
+	parser.add_argument('choice_one',
+			type=str,
+			required = False)
+	parser.add_argument('choice_two',
+			type = str,
+			required = False)
 	# parser.add_argument('image_data',
 	# 		type = str,
 	# 		required = True,
@@ -69,6 +79,21 @@ class MenuItem(Resource):
 				"name": "cat_id",
 				"required": True,
 				"dataType": "int"
+			},
+			{
+				"name": "choice",
+				"required": True,
+				"dataType": "Boolean"
+			},
+			{
+				"name": "choice_one",
+				"required": False,
+				"dataType": "string"
+			},
+			{
+				"name": "choice_two",
+				"required": False,
+				"dataType": "string"
 			}
 			]
 		)
@@ -98,9 +123,20 @@ class MenuItem(Resource):
 		# im.save(os.path.join('uploads/', data['name']))
 
 		if data['half_price'] is not None:
-			item = MenuItemModel(data['name'], data['description'], data['full_price'], data['half_price'], data['cat_id'])
+			if data['choice'] == False:
+				item = MenuItemModel(data['name'], data['description'], data['full_price'], data['half_price'], data['cat_id'], data['choice'], None, None)
+			else:
+				item = MenuItemModel(data['name'], data['description'], data['full_price'], data['half_price'], data['cat_id'], data['choice'], data['choice_one'], data['choice_two'])
+
+
+			# item = MenuItemModel(data['name'], data['description'], data['full_price'], data['half_price'], data['cat_id'])
 		else:
-			item = MenuItemModel(data['name'], data['description'], data['full_price'],None, data['cat_id'])
+			# item = MenuItemModel(data['name'], data['description'], data['full_price'],None, data['cat_id'])
+			if data['choice'] == False:
+				item = MenuItemModel(data['name'], data['description'], data['full_price'],None, data['cat_id'], data['choice'], None, None)
+			else:
+				item = MenuItemModel(data['name'], data['description'], data['full_price'],None, data['cat_id'], data['choice'], data['choice_one'], data['choice_two'])
+
 
 		try:
 			item.save_to_db()
@@ -134,6 +170,16 @@ class MenuItemEdit(Resource):
 			type = int,
 			required = True,
 			help = "Category To which this item belongs is required")
+	parser.add_argument('choice',
+			type=bool,
+			required = True,
+			help = "Choice Exists/Not Exists Required")
+	parser.add_argument('choice_one',
+			type=str,
+			required = False)
+	parser.add_argument('choice_two',
+			type = str,
+			required = False)
 
 	@swagger.operation(
 		notes='Get a Menu Item',
@@ -175,6 +221,13 @@ class MenuItemEdit(Resource):
 			else:
 				item.half_price = None
 			item.cat_id = data['cat_id']
+			item.choice = data['choice']
+			if data['choice'] == False:
+				item.choice_one = None
+				item.choice_two = None
+			else:
+				item.choice_one = data['choice_one']
+				item.choice_two = data['choice_two']
 			item.save_to_db()
 			return {'data':{'status': True, 'item': item.json()}}
 

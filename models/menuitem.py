@@ -11,23 +11,31 @@ class MenuItemModel(db.Model):
 	description = db.Column(db.String(150))
 	full_price = db.Column(db.Integer, nullable = False)
 	half_price = db.Column(db.Integer, nullable = True)
+	choice = db.Column(db.Boolean, default = False)
+	choice_one = db.Column(db.String(80), nullable = True)
+	choice_two = db.Column(db.String(80), nullable = True)
 	# image_path = db.Column(db.String(400))
 	cat_id = db.Column(db.Integer, db.ForeignKey('menucat.id'))
 	category = db.relationship('MenuCategoryModel')
 
-	def __init__(self, name, description, full_price, half_price, cat_id):
+	def __init__(self, name, description, full_price, half_price, cat_id, choice, choice_one, choice_two):
 		self.name = name
 		self.description = description
 		self.full_price = full_price
 		self.half_price = half_price
 		self.cat_id = cat_id
+		self.choice = choice
+		self.choice_one = choice_one
+		self.choice_two = choice_two
+
+
 		# self.image_path = image_path
 
 
 
-
 	def json(self):
-		return {'id': self.id, 'name': self.name, 'description': self.description, 'full_price': self.full_price, 'half_price': self.half_price, 'cat_id': self.cat_id}
+		return {'id': self.id, 'name': self.name, 'description': self.description, 'full_price': self.full_price, 'half_price': self.half_price, 'cat_id': self.cat_id, 'choice':self.choice, 'choice_one': self.choice_one, 'choice_two': self.choice_two}
+
 
 	def save_to_db(self):
 		db.session.add(self)
