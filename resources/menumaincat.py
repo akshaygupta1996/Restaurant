@@ -121,4 +121,4 @@ class MenuItemsByMainCategory(Resource):
 		all_menu_items = [{"category": t, "items": s} for t, s in zip(category, items)]
 
 
-		return {'data':{'status': True, 'menu':all_menu_items}}
+		return {'data':{'status': True, 'menu':json.dumps(all_menu_items)}}
