@@ -2,7 +2,9 @@ from flask_restful import Resource, reqparse
 from flask import request
 from models.menumaincat import MenuMainCategoryModel
 from models.menucat import MenuCategoryModel
+from models.menuitem import MenuItemModel
 from flask_restful_swagger import swagger
+import json
 
 
 class MenuMainCategory(Resource):
@@ -91,3 +93,32 @@ class MenuMainCategoryEdit(Resource):
 
 
 
+class MenuItemsByMainCategory(Resource):
+
+
+	@swagger.operation(
+		notes='List all items with category in main category',
+		nickname='GET',
+		parameters=[
+			{
+				"name": "cat_id",
+				"required": True,
+				"dataType": "int"
+			}]
+		)
+
+
+	def get(self, cat_id):
+
+		category, items = [], [] 
+		allcat = MenuCategoryModel.query.filter_by(main_cat_id = cat_id).all()
+
+		for cat in allcat:
+			category.append(cat)
+			menuitems = MenuItemModel.query.filter_by(cat_id = cat.cat_id).all()
+			items.append(menuitems)
+
+		all_menu_items = [{"category": t, "items": s} for t, s in zip(category, items)]
+
+
+		return {'data':{'status': True, 'menu':all_menu_items}}

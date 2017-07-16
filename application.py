@@ -4,7 +4,7 @@ from flask_restful_swagger import swagger
 from resources.users import Users, LoginUsers
 from resources.address import UserAddress, UsersAddress
 from resources.menucat import MenuCategory, MenuCategoryEdit
-from resources.menumaincat import MenuMainCategory, MenuMainCategoryEdit
+from resources.menumaincat import MenuMainCategory, MenuMainCategoryEdit, MenuItemsByMainCategory
 from resources.menuitem import MenuItem, MenuItemEdit
 from resources.promocode import PromoCode, PromoCodeEdit
 from resources.userpromo import UserPromo, UserPromoEdit
@@ -53,6 +53,7 @@ api.add_resource(UserPromoEdit,'/userpromo/<int:userpromo_id>')
 api.add_resource(UserPromo,'/userpromoedit/<int:user_id>')
 api.add_resource(MenuMainCategory, '/menumaincat')
 api.add_resource(MenuMainCategoryEdit, '/menumaincat/<int:cat_id>')
+api.add_resource(MenuItemsByMainCategory, '/menu/<int:cat_id>')
 
 
 if __name__ == '__main__':
