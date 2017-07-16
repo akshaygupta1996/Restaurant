@@ -115,7 +115,7 @@ class MenuItemsByMainCategory(Resource):
 
 		for cat in allcat:
 			category.append(cat)
-			menuitems = MenuItemModel.query.filter_by(cat_id = cat.cat_id).all()
+			menuitems = MenuItemModel.query.filter_by(cat_id = cat.id).all()
 			items.append(menuitems)
 
 		all_menu_items = [{"category": t, "items": s} for t, s in zip(category, items)]
