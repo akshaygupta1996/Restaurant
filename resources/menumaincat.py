@@ -5,6 +5,7 @@ from models.menucat import MenuCategoryModel
 from models.menuitem import MenuItemModel
 from flask_restful_swagger import swagger
 import json
+from flask import jsonify
 
 
 class MenuMainCategory(Resource):
@@ -108,17 +109,44 @@ class MenuItemsByMainCategory(Resource):
 		)
 
 
-	def get(self, cat_id):
+	def get(self):
 
-		category, items = [], [] 
-		allcat = MenuCategoryModel.query.filter_by(main_cat_id = cat_id).all()
+		maincategory , category, items, cc = [], [] ,[], []
 
-		for cat in allcat:
-			category.append(cat)
-			menuitems = MenuItemModel.query.filter_by(cat_id = cat.id).all()
-			items.append(menuitems)
+		maincat = MenuMainCategoryModel.query.all()
 
-		all_menu_items = [{"category": t, "items": s} for t, s in zip(category, items)]
+		for main in maincat:
+			print main.json()
+			maincategory.append(main.json())
+			allcat = MenuCategoryModel.query.filter_by(main_cat_id = main.id).all()
+			for cat in allcat:
+				category.append(cat.json())
+				menuitems = MenuItemModel.query.filter_by(cat_id = cat.id).all()
+				m_items = []
+				for item in menuitems:
+					m_items.append(item.json())
+				items.append(m_items)
+			all_menu_items = [{"subcategory": t, "items": s} for t,s in zip(category, items)]
+			cc.append(all_menu_items)
+
+		fuck_all_menu = [{"maincategory": m, "allitems": c} for m,c in zip(maincategory, cc)]
+		return {'data':{'status': True, 'menu': fuck_all_menu}}
 
 
-		return {'data':{'status': True, 'menu':json.dumps(all_menu_items)}}
+
+		# allcat = MenuCategoryModel.query.filter_by(main_cat_id = cat_id).all()
+
+		# for cat in allcat:
+		# 	print cat.json()
+		# 	category.append(cat.json())
+		# 	menuitems = MenuItemModel.query.filter_by(cat_id = cat.id).all()
+		# 	m_items = []
+		# 	for item in menuitems:
+		# 		m_items.append(item.json())
+		# 	items.append(m_items)
+
+		# all_menu_items = [{"category": t, "items": s} for t, s in zip(category, items)]
+		# # print items
+		# # all_menu_items = {"items": [s for s in items]}
+
+		# return {'data':{'status': True, 'menu': all_menu_items}}

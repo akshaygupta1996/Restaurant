@@ -15,6 +15,13 @@ class MenuMainCategoryModel(db.Model):
 		self.cat_name = cat_name
 
 
+	def __json__(self):
+		json_exclude = getattr(self, '__json_exclude__', set())
+		return {key: value for key, value in self.__dict__.items()
+				if not key.startswith('_')
+				and key not in json_exclude}
+
+
 	def json(self):
 		return { 'id': self.id, 'cat_name': self.cat_name}
 
