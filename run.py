@@ -1,11 +1,11 @@
-from application import application
-from db import db
+# from app import app
+# from db import db
 
-db.init_app(application)
-
-
+# db.init_app(app)
 
 
-@application.before_first_request
-def create_tables():
-	db.create_all()
+
+
+# @application.before_first_request
+# def create_tables():
+# 	db.create_all()
