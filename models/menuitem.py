@@ -17,6 +17,7 @@ class MenuItemModel(db.Model):
 	# image_path = db.Column(db.String(400))
 	cat_id = db.Column(db.Integer, db.ForeignKey('menucat.id'))
 	category = db.relationship('MenuCategoryModel')
+	menuorderitem = db.relationship('MenuOrderItemModel', lazy = 'dynamic')
 
 	def __init__(self, name, description, full_price, half_price, cat_id, choice, choice_one, choice_two):
 		self.name = name

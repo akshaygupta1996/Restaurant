@@ -14,6 +14,8 @@ class UsersAddressModel(db.Model):
 	address = db.Column(db.String(150))
 	instructions = db.Column(db.String(150))
 	user = db.relationship('UsersModel')
+	menuorder = db.relationship('MenuOrderModel', lazy = 'dynamic')
+	
 
 
 	def __init__(self,user_id, delivery_area, address, instructions):

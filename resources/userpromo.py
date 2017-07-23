@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask import request
 from models.userpromo import UserPromoModel
+from models.promocode import PromoCodeModel
 from flask_restful_swagger import swagger
 from datetime import datetime
 
@@ -60,4 +61,35 @@ class UserPromo(Resource):
 	def get(self, user_id):
 
 		return {'data': [item.json() for item in UserPromoModel.query.filter_by(user_id = user_id, userpromo_used = True).all()]}
+
+
+
+class CheckPromoAvailability(Resource):
+
+
+	def get(self, promo_code, user_id):
+
+		date = datetime.now().date()
+
+		promocode = PromoCodeModel.query.filter_by(promo_code = promo_code).first()
+
+		if promocode:
+			if promocode.promo_validity >= date:
+
+				if promocode.promo_user == False:
+
+					return {'date': { 'status': True, 'promocode': promocode.json()}}
+				else:
+
+					checkuser = UserPromoModel.query.filter(UserPromoModel.user_id == user_id, UserPromoModel.promo_code == promo_code).first()
+					if checkuser is None:
+						return {'data': {'status': False}}
+					else:
+						if checkuser.userpromo_used == False and checkuser.userpromo_validity >= date:
+							return {'date': { 'status': True, 'promocode': promocode.json()}}
+		
+	
+		return {'data':{'status': False}}
+
+
 
