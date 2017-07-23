@@ -117,7 +117,7 @@ class MenuItemsByMainCategory(Resource):
 
 		for main in maincat:
 			print main.json()
-			category, items = [], [] 
+			category, items = [], []
 			maincategory.append(main.json())
 			allcat = MenuCategoryModel.query.filter_by(main_cat_id = main.id).all()
 			for cat in allcat:

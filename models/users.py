@@ -1,4 +1,5 @@
-from db import db
+# from db import db
+from models import db
 import datetime
 import random
 from flask_restful_swagger import swagger
@@ -19,6 +20,7 @@ class UsersModel(db.Model):
 	register_ref_no = db.Column(db.Integer, default=0)
 	created_at = db.Column(db.Date, default=datetime.datetime.now)
 	updated_at = db.Column(db.Date, onupdate=datetime.datetime.now)
+	wallet = db.Column(db.Integer, default = 0)
 	address = db.relationship('UsersAddressModel', lazy = 'dynamic')
 	promo = db.relationship('UserPromoModel', lazy = 'dynamic')
 	

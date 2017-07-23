@@ -39,7 +39,7 @@ class Users(Resource):
 
 	def get(self):
 
-		return {'data':{'users': [user.json() for user in UsersModel.query.all()], 'status': True}}
+		return {'users': [user.json() for user in UsersModel.query.all()]}
 
 	
 	@swagger.operation(

@@ -1,4 +1,5 @@
-from db import db
+# from db import db
+from models import db
 import datetime
 from flask_restful_swagger import swagger
 
@@ -14,8 +15,6 @@ class UsersAddressModel(db.Model):
 	address = db.Column(db.String(150))
 	instructions = db.Column(db.String(150))
 	user = db.relationship('UsersModel')
-	menuorder = db.relationship('MenuOrderModel', lazy = 'dynamic')
-	
 
 
 	def __init__(self,user_id, delivery_area, address, instructions):

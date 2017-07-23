@@ -1,4 +1,5 @@
-from db import db
+# from db import db
+from models import db
 from flask_restful_swagger import swagger
 
 
@@ -16,7 +17,7 @@ class PromoCodeModel(db.Model):
 	promo_description = db.Column(db.String(100), nullable = False)
 	promo_url = db.Column(db.String(100), nullable = False)
 	promouser = db.relationship('UserPromoModel' , lazy = 'dynamic')
-	users = db.relationship('MenuOrderModel', lazy = 'dynamic')
+	# users = db.relationship('MenuOrderModel', lazy = 'dynamic')
 	
 
 

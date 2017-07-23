@@ -1,4 +1,5 @@
-from db import db
+# from db import db
+from models import db
 from flask_restful_swagger import swagger
 
 

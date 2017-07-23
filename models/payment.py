@@ -1,4 +1,5 @@
-from db import db
+# from db import db
+from models import db
 import datetime
 import random
 from flask_restful_swagger import swagger
@@ -12,7 +13,7 @@ class PaymentModel(db.Model):
 	transaction_id = db.Column(db.String(12), unique = True, nullable = False)
 	date_time_of_payment = db.Column(db.Date, datetime.datetime.now)
 	amount = db.Column(db.Integer, nullable = False)
-	users = db.relationship('UsersModel', lazy = 'dynamic')
+	# users = db.relationship('UsersModel', lazy = 'dynamic')
 
 	def __init__(payment_type, transaction_id, date_time_of_payment, amount):
 		self.payment_type = payment_type
