@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from flask import request, jsonify,make_response
 from models.users import UsersModel
+from models.userpromo import UserPromoModel
 from flask_restful_swagger import swagger
 from db import db
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
@@ -115,14 +116,26 @@ class Users(Resource):
 				elif no < 2:
 					no = no + 1
 					user_ref.register_ref_no = no
+
 					try:
 						db.session.commit()
 					except:
 						return {'message': "An Error Occured"}, 500
+
+					userpromo = UserPromoModel(user_ref.id, "REF020", "2018-12-12", False)
+					
+					try:
+						userpromo.save_to_db()
+					except:
+						return {'message': "User promo table Error"}, 500
 					refcode = UsersModel.getRefCode(data['fname'])
 					user = UsersModel(data['fname'], data['lname'], data['email'], data['phone_number'], data['password'],refcode, data['register_ref'],0)
+
 					try:
 						user.save_to_db()
+						user_id_for_promo = user.id
+						userpromo_u = UserPromoModel(user_id_for_promo, "REF010", "2018-12-12", False)
+						userpromo_u.save_to_db()
 					except:
 						return {'message': "An Error Occured"}, 500
 

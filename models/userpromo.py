@@ -16,14 +16,14 @@ class UserPromoModel(db.Model):
 	promo = db.relationship('PromoCodeModel')
 
 
-	def __init__(user_id, promo_code,userpromo_validity, userpromo_used):
+	def __init__(self, user_id, promo_code,userpromo_validity, userpromo_used):
 		self.user_id = user_id
 		self.promo_code = promo_code
 		self.userpromo_used  = userpromo_used
 		self.userpromo_validity = userpromo_validity
 
-	def json():
-		return {'userpromo_id': self.userpromo_id, 'user_id': self.user_id, 'userpromo_used': self.userpromo_used, 'userpromo_validity': str(self.userpromo_validity)}
+	def json(self):
+		return {'userpromo_id': self.userpromo_id,'promo_code':self.promo_code ,'user_id': self.user_id, 'userpromo_used': self.userpromo_used, 'userpromo_validity': str(self.userpromo_validity)}
 
 	@classmethod
 	def find_by_id(cls,userpromo_id):

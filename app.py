@@ -6,8 +6,9 @@ from resources.address import UserAddress, UsersAddress
 from resources.menucat import MenuCategory, MenuCategoryEdit
 from resources.menumaincat import MenuMainCategory, MenuMainCategoryEdit, MenuItemsByMainCategory
 from resources.menuitem import MenuItem, MenuItemEdit
-from resources.promocode import PromoCode, PromoCodeEdit
-from resources.userpromo import UserPromo, UserPromoEdit
+from resources.promocode import PromoCode, PromoCodeEdit, PromoCodeForAll
+from resources.userpromo import UserPromo, UserPromoEdit, CheckPromoAvailability, PromoCodeAtCheckOut
+from resources.taxes import Tax, TaxEdit
 
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
@@ -84,6 +85,11 @@ api.add_resource(UserPromo,'/userpromoedit/<int:user_id>')
 api.add_resource(MenuMainCategory, '/menumaincat')
 api.add_resource(MenuMainCategoryEdit, '/menumaincat/<int:cat_id>')
 api.add_resource(MenuItemsByMainCategory, '/menu')
+api.add_resource(Tax, '/tax')
+api.add_resource(TaxEdit, '/tax/<int:id>')
+api.add_resource(PromoCodeForAll, '/promocodeforall')
+api.add_resource(CheckPromoAvailability, '/checkpromoavailability/<string:promo_code>/<int:user_id>')
+api.add_resource(PromoCodeAtCheckOut, '/phomocodeatcheckout/<int:user_id>')
 
 
 if __name__ == '__main__':
