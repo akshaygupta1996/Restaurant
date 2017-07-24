@@ -156,9 +156,11 @@ class UserAddress(Resource):
 	def delete(self, id):
 		
 		address = UsersAddressModel.find_by_id(id)
+		user_id = address.user_id
 		if address:
 			address.delete_from_db()
-			return {'data':{'status': True}}
+
+			return {'data':{'status': True, 'address': [add.json() for add in UsersAddressModel.query.filter_by(user_id = user_id).all()]}}
 
 		return {'data':{'status': False}}
 
