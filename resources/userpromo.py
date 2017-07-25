@@ -107,7 +107,11 @@ class PromoCodeAtCheckOut(Resource):
 
 	def get(self, user_id):
 
-		for item in UserPromoModel.query.filter_by(user_id = user_id, userpromo_used = False).all():
+
+
+		date = datetime.now().date()
+
+		for item in UserPromoModel.query.filter(UserPromoModel.user_id == user_id, UserPromoModel.userpromo_used == False,UserPromoModel.userpromo_validity >= date):
 
 			promolist = []
 			promo_code = item.promo_code
@@ -116,8 +120,6 @@ class PromoCodeAtCheckOut(Resource):
 
 				promolist.append({'promo_code': promo_code, 'promo_discount_per':promo.promo_discount_per, 'promo_wallet': promo.promo_wallet, 'promo_description': promo.promo_description, 'userpromo_validity': str(item.userpromo_validity)})
 
-
-		date = datetime.now().date()
 
 		for promo in PromoCodeModel.query.filter(PromoCodeModel.promo_validity >= date, PromoCodeModel.promo_user == 0):
 
