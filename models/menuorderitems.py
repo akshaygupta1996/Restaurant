@@ -4,10 +4,9 @@ import datetime
 import random
 from flask_restful_swagger import swagger
 
-@swagger.model
-class MenuOrderItemModel(db.model):
+class MenuOrderItemModel(db.Model):
 
-	__tablename__ = "menuorderitem"
+	__tablename__ = "menuorderitems"
 
 
 	id = db.Column(db.Integer, primary_key = True)
@@ -19,7 +18,7 @@ class MenuOrderItemModel(db.model):
 	menuorder = db.relationship('MenuOrderModel')
 	menuitem = db.relationship('MenuItemModel')
 
-	def ___init__(order_no, menu_item_id, menu_qty, menu_amount, choice):
+	def __init__(self,order_no, menu_item_id, menu_qty, menu_amount, choice):
 		self.order_no = order_no
 		self.menu_item_id = menu_item_id
 		self.menu_qty = menu_qty
@@ -30,8 +29,6 @@ class MenuOrderItemModel(db.model):
 	def json(self):
 		return {'id': self.id, 'order_no': self.order_no, 'menu_item_id': self.menu_item_id, 'menu_qty': self.menu_qty, 'menu_amount': self.menu_amount, 'choice': self.choice}
 
-
-	
 	@classmethod
 	def find_by_id(cls, id):
 		return cls.query.filter_by(id = id).first()

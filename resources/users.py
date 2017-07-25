@@ -81,6 +81,7 @@ class Users(Resource):
 		])
 	def post(self):
 
+
 		data = Users.parser.parse_args()
 
 		if UsersModel.find_by_email(data['email']):
