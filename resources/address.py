@@ -138,8 +138,9 @@ class UserAddress(Resource):
 			address.delivery_area = data['delivery_area']
 			address.instructions = data['instructions']
 			address.address = data['address']
+			user_id = address.user_id
 			address.save_to_db()
-			return {'data':{'status': True, 'address': address.json()}}
+			return {'data':{'status': True, 'address': [add.json() for add in UsersAddressModel.query.filter_by(user_id = user_id).all()]}}
 		return {'data':{'status': False}}
 
 	@swagger.operation(
