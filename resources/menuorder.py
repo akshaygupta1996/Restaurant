@@ -116,7 +116,7 @@ class MenuOrderResource(Resource):
 						return {'data':{"status": False, "message": "Menu Item Save Failed"}}, 500
 
 				db.session.commit()
-				return {'data': {"status": True, "payment": payment.json(), "order": order.json() }}
+				return {'data': {"status": True, "payment": payment.json(), "order": order.json() ,"menu": menu}}
 		except:
 			db.session.rollback()
 		finally:
@@ -128,7 +128,7 @@ class MenuOrderResource(Resource):
 
 class MenuOrderResourceEdit(Resource):
 
-
+ 
 
 	def put(self, order_id):
 
