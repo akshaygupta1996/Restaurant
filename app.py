@@ -9,7 +9,7 @@ from resources.menuitem import MenuItem, MenuItemEdit
 from resources.promocode import PromoCode, PromoCodeEdit, PromoCodeForAll
 from resources.userpromo import UserPromo, UserPromoEdit, CheckPromoAvailability, PromoCodeAtCheckOut
 from resources.taxes import Tax, TaxEdit
-from resources.menuorder import MenuOrderResource, MenuOrderResourceEdit, MenuOrderResourceEditRatings
+from resources.menuorder import MenuOrderResource, MenuOrderResourceEdit, MenuOrderResourceEditRatings, MenuOrderForUsers
 
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
@@ -94,6 +94,7 @@ api.add_resource(PromoCodeAtCheckOut, '/phomocodeatcheckout/<int:user_id>')
 api.add_resource(MenuOrderResource, '/bookmenu')
 api.add_resource(MenuOrderResourceEdit, '/approveorder/<int:order_id>')
 api.add_resource(MenuOrderResourceEditRatings, '/foodratings/<int:order_id>/<int:ratings>')
+api.add_resource(MenuOrderForUsers, '/menuorderusers/<int:user_id>')
 
 
 if __name__ == '__main__':

@@ -3,6 +3,7 @@ from flask import request
 from models.menuorder import MenuOrderModel
 from models.menuorderitems import MenuOrderItemModel
 from models.payment import PaymentModel
+from models.menuitem import MenuItemModel
 from flask_restful_swagger import swagger
 import json
 from db import db
@@ -105,6 +106,10 @@ class MenuOrderResource(Resource):
 				menu = json.loads(data['menu'])
 
 				for m in menu:
+
+					print str(m)
+					# m = json.loads(me)
+
 					mmodel = MenuOrderItemModel(o_id, m['menu_id'], m['menu_qty'],m['menu_amount'], m['menu_choice'])
 
 					try:
@@ -117,8 +122,8 @@ class MenuOrderResource(Resource):
 
 				db.session.commit()
 				return {'data': {"status": True, "payment": payment.json(), "order": order.json() ,"menu": menu}}
-		except:
-			db.session.rollback()
+		# except:
+		# 	db.session.rollback()
 		finally:
 			db.session.close()
 
@@ -156,4 +161,36 @@ class MenuOrderResourceEditRatings(Resource):
 			return {"data": {"status": True}}
 
 		return {"data": {"status": False}}
+
+class MenuOrderForUsers(Resource):
+
+
+	def get(self, user_id):
+
+		orders = MenuOrderModel.query.filter_by(user_id = user_id).all()
+
+		menuorder = []
+		payment = []
+		menu = []
+		for order in orders:
+			menuorder.append(order.json())
+			p = PaymentModel.query.filter_by(id = order.payment_id).first()
+			payment.append(p.json())
+
+			menuitems = MenuOrderItemModel.query.filter_by(order_no = order.id).all()
+			items = []
+			for m in menuitems:
+				menuitem = MenuItemModel.query.filter_by(id = m.menu_item_id).first()
+
+				item = {'menu_id': m.id, 'menu_qty': m.menu_qty, 'menu_amount': m.menu_amount, 'menu_choice': m.choice, 'menu_name': menuitem.name, 'menu_choice_one': menuitem.choice_one, 'menu_choice_two': menuitem.choice_two, 'menu_description': menuitem.description}
+				items.append(item)
+			menu.append(items)
+
+		fuck_all_order = [{"payment": p, "order": o, "menu": m} for p,o,m in zip(payment, menuorder, menu)]
+		return {'data':{'status': True, 'menu': fuck_all_order}}
+
+
+
+
+
 	
