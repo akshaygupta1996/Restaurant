@@ -10,6 +10,12 @@ from pyfcm import FCMNotification
 import json
 from db import db
 from flask import jsonify
+import pyrebase
+
+config = {
+  "apiKey": "AIzaSyAkC3R1awnMDNSfSbYwFvOPkgO5mtnT1Dg",
+  "databaseURL": "https://kmnorth-39c42.firebaseio.com"
+}
 
 
 class MenuOrderResource(Resource):
@@ -126,7 +132,10 @@ class MenuOrderResource(Resource):
 				push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
  
 				# Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
-				 
+				firebase = pyrebase.initialize_app(config)
+				db = firebase.database()
+				data = {"user_id": data['user_id'], "status": "0"}
+				db.child("orders").child(o_id).push(data)
 				admin = AdminModel.find_by_username("admin")
 				print admin.fcmtoken
 				registration_id = admin.fcmtoken
