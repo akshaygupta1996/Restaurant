@@ -14,7 +14,9 @@ import pyrebase
 
 config = {
   "apiKey": "AIzaSyAkC3R1awnMDNSfSbYwFvOPkgO5mtnT1Dg",
-  "databaseURL": "https://kmnorth-39c42.firebaseio.com"
+  "authDomain": "kmnorth-39c42.firebaseapp.com",
+  "databaseURL": "https://kmnorth-39c42.firebaseio.com",
+  "storageBucket": "gs://kmnorth-39c42.appspot.com"
 }
 
 
