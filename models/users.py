@@ -43,6 +43,12 @@ class UsersModel(db.Model):
 
 		return cls.query.filter_by(email = email).first()
 
+
+	@classmethod
+	def find_by_id(cls, email):
+
+		return cls.query.filter_by(id = id).first()
+
 	@classmethod
 	def find_by_phone(cls, phone_number):
 

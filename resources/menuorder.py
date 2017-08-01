@@ -136,7 +136,10 @@ class MenuOrderResource(Resource):
 				# Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
 				firebase = pyrebase.initialize_app(config)
 				dbfirebase = firebase.database()
-				data = {"user_id": data['user_id'], "status": "0", "order": order.json(), "payment": payment.json(), "menu": menu}
+
+				user = UsersModel.find_by_id(data['user_id'])
+				address = UsersAddressModel.find_by_id(data['address_id'])
+				data = {"user_id": data['user_id'], "status": "0", "order": order.json(), "payment": payment.json(), "menu": menu, "user": user.json(), "address": address.json()}
 				dbfirebase.child("orders").child(order_no).push(data)
 				admin = AdminModel.find_by_username("admin")
 				print admin.fcmtoken
