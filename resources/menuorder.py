@@ -4,7 +4,9 @@ from models.menuorder import MenuOrderModel
 from models.menuorderitems import MenuOrderItemModel
 from models.payment import PaymentModel
 from models.menuitem import MenuItemModel
+from models.admin import AdminModel
 from flask_restful_swagger import swagger
+from pyfcm import FCMNotification
 import json
 from db import db
 from flask import jsonify
@@ -121,6 +123,16 @@ class MenuOrderResource(Resource):
 						return {'data':{"status": False, "message": "Menu Item Save Failed"}}, 500
 
 				db.session.commit()
+				push_service = FCMNotification(api_key="AIzaSyAkC3R1awnMDNSfSbYwFvOPkgO5mtnT1Dg")
+ 
+				# Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
+				 
+				admin = AdminModel.find_by_username(admin)
+				registration_id = admin.fcmtoken
+				message_title = "New Order"
+				message_body = "A new Food order has arrived..!! Confirm the order "
+				result = push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
+ 
 				return {'data': {"status": True, "payment": payment.json(), "order": order.json() ,"menu": menu}}
 		# except:
 		# 	db.session.rollback()
