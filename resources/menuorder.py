@@ -123,7 +123,7 @@ class MenuOrderResource(Resource):
 						return {'data':{"status": False, "message": "Menu Item Save Failed"}}, 500
 
 				db.session.commit()
-				push_service = FCMNotification(api_key="AIzaSyAkC3R1awnMDNSfSbYwFvOPkgO5mtnT1Dg")
+				push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
  
 				# Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
 				 
