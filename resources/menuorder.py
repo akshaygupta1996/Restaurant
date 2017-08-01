@@ -5,6 +5,8 @@ from models.menuorderitems import MenuOrderItemModel
 from models.payment import PaymentModel
 from models.menuitem import MenuItemModel
 from models.admin import AdminModel
+from models.users import UsersModel
+from models.address import UsersAddressModel
 from flask_restful_swagger import swagger
 from pyfcm import FCMNotification
 import json
