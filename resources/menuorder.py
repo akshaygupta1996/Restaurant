@@ -186,7 +186,7 @@ class MenuOrderForUsers(Resource):
 				items.append(item)
 			menu.append(items)
 
-		fuck_all_order = [{"payment": p, "order": o, "menu": m} for p,o,m in zip(payment, menuorder, menu)]
+		fuck_all_order = [{"status": True, "payment": p, "order": o, "menu": m} for p,o,m in zip(payment, menuorder, menu)]
 		return {'data':{'status': True, 'menu': fuck_all_order}}
 
 
