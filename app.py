@@ -95,7 +95,7 @@ api.add_resource(MenuOrderResource, '/bookmenu')
 api.add_resource(MenuOrderResourceEdit, '/approveorder/<int:order_id>')
 api.add_resource(MenuOrderResourceEditRatings, '/foodratings/<int:order_id>/<int:ratings>')
 api.add_resource(MenuOrderForUsers, '/menuorderusers/<int:user_id>')
-api.add_resource(LoginAdmin, '/admin/<string:username>/<string:password>')
+api.add_resource(LoginAdmin, '/admin/<string:username>/<string:password>/<string:fcmtoken>')
 
 
 
