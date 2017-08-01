@@ -128,10 +128,11 @@ class MenuOrderResource(Resource):
 				# Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
 				 
 				admin = AdminModel.find_by_username("admin")
+				print admin.fcmtoken
 				registration_id = admin.fcmtoken
 				message_title = "New Order"
 				message_body = "A new Food order has arrived..!! Confirm the order "
-				result = push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
+				push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
  
 				return {'data': {"status": True, "payment": payment.json(), "order": order.json() ,"menu": menu}}
 		# except:
