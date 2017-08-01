@@ -127,7 +127,7 @@ class MenuOrderResource(Resource):
  
 				# Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
 				 
-				admin = AdminModel.find_by_username(admin)
+				admin = AdminModel.find_by_username("admin")
 				registration_id = admin.fcmtoken
 				message_title = "New Order"
 				message_body = "A new Food order has arrived..!! Confirm the order "
