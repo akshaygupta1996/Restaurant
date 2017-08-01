@@ -8,6 +8,7 @@ from models.admin import AdminModel
 from flask_restful_swagger import swagger
 from pyfcm import FCMNotification
 import json
+import datetime
 from db import db
 from flask import jsonify
 import pyrebase
@@ -139,7 +140,7 @@ class MenuOrderResource(Resource):
 
 				user = UsersModel.find_by_id(data['user_id'])
 				address = UsersAddressModel.find_by_id(data['address_id'])
-				data = {"user_id": data['user_id'], "status": "0", "order": order.json(), "payment": payment.json(), "menu": menu, "user": user.json(), "address": address.json()}
+				data = {"user_id": data['user_id'], "status": "0", "order": order.json(), "payment": payment.json(), "menu": menu, "user": user.json(), "address": address.json(), "datetime": datetime.datetime.now()}
 				dbfirebase.child("orders").child(order_no).push(data)
 				admin = AdminModel.find_by_username("admin")
 				print admin.fcmtoken
