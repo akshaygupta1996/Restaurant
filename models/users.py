@@ -45,7 +45,7 @@ class UsersModel(db.Model):
 
 
 	@classmethod
-	def find_by_id(cls, email):
+	def find_by_id(cls, id):
 
 		return cls.query.filter_by(id = id).first()
 
