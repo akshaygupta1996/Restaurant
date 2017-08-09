@@ -23,9 +23,10 @@ class UsersModel(db.Model):
 	wallet = db.Column(db.Integer, default = 0)
 	address = db.relationship('UsersAddressModel', lazy = 'dynamic')
 	promo = db.relationship('UserPromoModel', lazy = 'dynamic')
+	fcmtoken = db.Column(db.String(300), default = "")
 	
 
-	def __init__(self,fname,lname,email,phone_number,password, refcode, register_ref, register_ref_no):
+	def __init__(self,fname,lname,email,phone_number,password, refcode, register_ref, register_ref_no, fcmtoken):
 		self.fname = fname
 		self.lname = lname
 		self.email = email
@@ -34,14 +35,26 @@ class UsersModel(db.Model):
 		self.refcode = refcode
 		self.register_ref = register_ref
 		self.register_ref_no = register_ref_no
+		self.fcmtoken = fcmtoken
 
 	def json(self):
-		return { 'id': self.id, 'fname': self.fname, 'lname': self.lname, 'email': self.email, 'phone_number': self.phone_number, 'refcode': self.refcode}
+		return { 'id': self.id, 'fname': self.fname, 'lname': self.lname, 'email': self.email, 'phone_number': self.phone_number, 'refcode': self.refcode , 'fcmtoken': self.fcmtoken}
 
 	@classmethod
 	def find_by_email(cls, email):
 
 		return cls.query.filter_by(email = email).first()
+
+
+	@classmethod
+	def get_fcmtoken_of_user(cls, id):
+
+		user = UsersModel.find_by_id(id)
+		if user:
+			return {'data':{'status': True, 'fcmtoken': user.fcmtoken, 'fname': user.fname, 'lname': user.lname}}
+		else:
+			return {'data':{'status': False}}
+
 
 
 	@classmethod

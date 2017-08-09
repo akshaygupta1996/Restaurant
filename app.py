@@ -11,6 +11,7 @@ from resources.userpromo import UserPromo, UserPromoEdit, CheckPromoAvailability
 from resources.taxes import Tax, TaxEdit
 from resources.menuorder import MenuOrderResource, MenuOrderResourceEdit, MenuOrderResourceEditRatings, MenuOrderForUsers
 from resources.admin import LoginAdmin
+from resources.notification import NotificationConfirmOrder, NotificationKitchen, NotificationOutForDelivery
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
 from security import authenticate, identity
@@ -72,7 +73,7 @@ manager.add_command('db', MigrateCommand)
 
 
 api.add_resource(Users, '/register')
-api.add_resource(LoginUsers, '/login/<int:flag>/<string:user_ep>/<string:password>')
+api.add_resource(LoginUsers, '/login/<int:flag>/<string:user_ep>/<string:password>/<string:fcmtoken>')
 api.add_resource(UsersAddress, '/user_address/<int:user_id>')
 api.add_resource(UserAddress, '/address/<int:id>')
 api.add_resource(MenuCategory, '/category/<int:main_cat_id>')
@@ -96,6 +97,9 @@ api.add_resource(MenuOrderResourceEdit, '/approveorder/<int:order_id>')
 api.add_resource(MenuOrderResourceEditRatings, '/foodratings/<int:order_id>/<int:ratings>')
 api.add_resource(MenuOrderForUsers, '/menuorderusers/<int:user_id>')
 api.add_resource(LoginAdmin, '/admin/<string:username>/<string:password>/<string:fcmtoken>')
+api.add_resource(NotificationConfirmOrder, '/confirmorder/<int:user_id>/<int:order_id>')
+api.add_resource(NotificationKitchen, '/inkitchen/<int:user_id>/<int:order_id>')
+api.add_resource(NotificationOutForDelivery, '/outfordelivery/<int:user_id>/<int:order_id>')
 
 
 

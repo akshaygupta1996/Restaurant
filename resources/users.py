@@ -172,12 +172,14 @@ class LoginUsers(Resource):
 
 		])
 
-		def get(self, flag, user_ep,password):
+		def get(self, flag, user_ep,password, fcmtoken):
 
 			if flag == 0:
 				user_email = UsersModel.find_by_email(user_ep)
 				if user_email:
 					if user_email.password == password:
+						user_email.fcmtoken = fcmtoken
+						user_email.save_to_db()
 						# return user_email.json()
 						ret = {'status': True,'user':{'access_token': create_access_token(identity=user_email.id),
 								 'user_id': user_email.id,
@@ -190,6 +192,8 @@ class LoginUsers(Resource):
 				user_phone = UsersModel.find_by_phone(user_ep)
 				if user_phone:
 					if user_phone.password == password:
+						user_phone.fcmtoken = fcmtoken
+						user_phone.save_to_db()
 						# return user_phone.json()
 						ret = {'status': True, 'user':{'access_token': create_access_token(identity=user_phone.id),
 								 'user_id': user_phone.id,
