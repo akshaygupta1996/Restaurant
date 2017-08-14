@@ -30,7 +30,8 @@ class NotificationConfirmOrder(Resource):
 			lname = user.lname
 			firebase = pyrebase.initialize_app(config)
 			dbfirebase = firebase.database()
-			dbfirebase.child("orders").child(order_id).update({'status': '2'})
+			# k = dbfirebase.child("orders").child(order_id).child().get()
+			dbfirebase.child("orders").child(order_id).update({'status': '1'})
 			push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
 			message_title = "Order Confirmed"
 			message_body = "Hey  "+ fname + " " + lname + ". Your Order has been confirmed. You can now track your order"
@@ -56,7 +57,7 @@ class NotificationKitchen(Resource):
 			lname = user.lname
 			firebase = pyrebase.initialize_app(config)
 			dbfirebase = firebase.database()
-			dbfirebase.child("orders").child(order_id).update({'status': '3'})
+			dbfirebase.child("orders").child(order_id).update({'status': '2'})
 			push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
 			message_title = "Your order is in Kitchen"
 			message_body = "Hey  "+ fname + " " + lname + ". Your Order is in kitchen....."
@@ -81,7 +82,7 @@ class NotificationOutForDelivery(Resource):
 			lname = user.lname
 			firebase = pyrebase.initialize_app(config)
 			dbfirebase = firebase.database()
-			dbfirebase.child("orders").child(order_id).update({'status': '4'})
+			dbfirebase.child("orders").child(order_id).update({'status': '3'})
 			push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
 			message_title = fname + " " + lname
 			message_body = " Your Order is out for delivery.. You can track the delivery boy..."

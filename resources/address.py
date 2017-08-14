@@ -69,7 +69,7 @@ class UsersAddress(Resource):
 		except:
 			return {'data':{"status": False}}, 500
 		
-		return {'data':{'status': True, 'address': [add.json() for add in UsersAddressModel.query.all()]}}, 201
+		return {'data':{'status': True, 'address': [add.json() for add in UsersAddressModel.query.filter_by(user_id = user_id).all()]}}, 201
 
 	@swagger.operation(
 		notes='Getting List of Addresses of a user',
