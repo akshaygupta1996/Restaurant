@@ -6,7 +6,8 @@ from flask_restful_swagger import swagger
 from db import db
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
-
+import firebase_admin
+from firebase_admin import auth
 class Users(Resource):
 	parser = reqparse.RequestParser()
 	parser.add_argument('fname',
@@ -181,8 +182,10 @@ class LoginUsers(Resource):
 						user_email.fcmtoken = fcmtoken
 						user_email.save_to_db()
 						# return user_email.json()
+						custom_token = auth.create_custom_token(user_ep)
 						ret = {'status': True,'user':{'access_token': create_access_token(identity=user_email.id),
 								 'user_id': user_email.id,
+								 'custom_token': custom_token,
 								 'fname': user_email.fname,
 								 'lname': user_email.lname,
 								 'email': user_email.email,
@@ -195,8 +198,10 @@ class LoginUsers(Resource):
 						user_phone.fcmtoken = fcmtoken
 						user_phone.save_to_db()
 						# return user_phone.json()
+						custom_token = auth.create_custom_token(user_ep)
 						ret = {'status': True, 'user':{'access_token': create_access_token(identity=user_phone.id),
 								 'user_id': user_phone.id,
+								 'custom_token': custom_token,
 								 'fname': user_phone.fname,
 								 'lname': user_phone.lname,
 								 'email': user_phone.email,
