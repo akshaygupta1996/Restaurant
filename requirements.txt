@@ -8,6 +8,7 @@ click==6.7
 decorator==4.1.1
 dill==0.2.7.1
 enum34==1.1.6
+firebase-admin==2.2.0
 Flask==0.12.2
 Flask-JWT==0.3.2
 Flask-JWT-Extended==2.4.1
@@ -22,7 +23,10 @@ gax-google-logging-v2==0.8.3
 gax-google-pubsub-v1==0.8.3
 gcloud==0.17.0
 google-auth==1.0.2
+google-cloud-core==0.26.0
+google-cloud-storage==1.3.2
 google-gax==0.15.13
+google-resumable-media==0.2.3
 googleapis-common-protos==1.5.2
 grpc-google-logging-v2==0.8.1
 grpc-google-pubsub-v1==0.8.1
@@ -34,6 +38,7 @@ Jinja2==2.9.6
 jws==0.1.3
 Mako==1.0.6
 MarkupSafe==1.0
+monotonic==1.3
 oauth2client==3.0.0
 olefile==0.44
 pbr==3.1.1
@@ -52,7 +57,7 @@ python-dateutil==2.6.0
 python-editor==1.0.3
 python-jwt==2.0.1
 pytz==2017.2
-requests==2.11.1
+requests==2.18.4
 requests-toolbelt==0.7.0
 rsa==3.4.2
 simplekv==0.10.0
@@ -60,5 +65,6 @@ six==1.10.0
 SQLAlchemy==1.1.11
 sqlparse==0.2.3
 Tempita==0.5.2
+tenacity==4.4.0
 urllib3==1.22
 Werkzeug==0.12.2
