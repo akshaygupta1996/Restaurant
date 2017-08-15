@@ -3,6 +3,7 @@ from models import db
 import datetime
 import random
 from flask_restful_swagger import swagger
+import pytz
 
 class PaymentModel(db.Model):
 
@@ -11,7 +12,7 @@ class PaymentModel(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	payment_type = db.Column(db.String(2), nullable = False)
 	transaction_id = db.Column(db.String(12), unique = True, nullable = False)
-	date_time_of_payment = db.Column(db.DateTime, default =datetime.datetime.now)
+	date_time_of_payment = db.Column(db.DateTime, default =datetime.datetime.now(pytz.timezone('Asia/Calcutta')))
 	amount = db.Column(db.Integer, nullable = False)
 	amount_payable = db.Column(db.Integer, nullable = False)
 	amount_tax = db.Column(db.Integer, nullable = False)

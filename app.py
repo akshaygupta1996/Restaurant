@@ -22,6 +22,12 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from flask_sqlalchemy import SQLAlchemy
 
+import firebase_admin
+from firebase_admin import credentials
+
+cred = credentials.Certificate("kmnorth-39c42-firebase-adminsdk-qc7g9-872d9f3775.json")
+firebase_admin.initialize_app(cred)kmnorth-39c42-firebase-adminsdk-qc7g9-872d9f3775.json
+
 
 
 

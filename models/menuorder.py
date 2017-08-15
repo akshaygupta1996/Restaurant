@@ -14,6 +14,7 @@ class MenuOrderModel(db.Model):
 	payment_id = db.Column(db.Integer, db.ForeignKey('payment.id'))
 	address_id = db.Column(db.Integer, db.ForeignKey('users_address.id'))
 	promo_code = db.Column(db.String(10), nullable = True)
+	date_time = db.Column(db.DateTime, default =datetime.datetime.now(pytz.timezone('Asia/Calcutta')))
 	special_note = db.Column(db.String(100), nullable = True)
 	ratings = db.Column(db.Integer, nullable = True)
 	approved = db.Column(db.Boolean, nullable = False)
