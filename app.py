@@ -13,7 +13,7 @@ from resources.menuorder import MenuOrderResource, MenuOrderResourceEdit, MenuOr
 from resources.admin import LoginAdmin
 from resources.notification import NotificationConfirmOrder, NotificationKitchen, NotificationOutForDelivery
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
-
+from resources.paymentanalytics import DailyPaymentDetails
 from security import authenticate, identity
 from flask_jwt import JWT
 import os
@@ -106,8 +106,7 @@ api.add_resource(LoginAdmin, '/admin/<string:username>/<string:password>/<string
 api.add_resource(NotificationConfirmOrder, '/confirmorder/<int:user_id>/<int:order_id>')
 api.add_resource(NotificationKitchen, '/inkitchen/<int:user_id>/<int:order_id>')
 api.add_resource(NotificationOutForDelivery, '/outfordelivery/<int:user_id>/<int:order_id>')
-
-
+api.add_resource(DailyPaymentDetails, '/paymentanalytics/<string:dateone>/<string:datetwo>')
 
 if __name__ == '__main__':
 	# from db import db
