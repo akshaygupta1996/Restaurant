@@ -55,9 +55,8 @@ class MenuOrderModel(db.Model):
 	def getOrderNumber(cls):
 
 		result = db.session.execute("SELECT MAX(order_id) + 1 as ord from menuorder where cast(date_time as Date) = '"+datetime.date.today() + "';")
-		re = dict()
 		for r in result:
-			return r['ord']
+			return str(r['ord'])
 		# ref = str(random.randint(100000, 999999))
 
 		# order = MenuOrderModel.find_by_code(ref)
