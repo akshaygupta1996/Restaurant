@@ -54,7 +54,7 @@ class MenuOrderModel(db.Model):
 	@classmethod
 	def getOrderNumber(cls):
 
-		result = db.session.execute("SELECT MAX(order_id) + 1 as ord from menuorder where cast(date_time as Date) = '"+str(datetime.date.today()) + "';")
+		result = db.session.execute("SELECT MAX(order_id) + 1 as ord from menuorder where cast(date_time as Date) = current_date();")
 		for r in result:
 			if r['ord'] is None:
 				return 1
