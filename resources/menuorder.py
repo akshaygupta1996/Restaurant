@@ -222,6 +222,14 @@ class MenuOrderForUsers(Resource):
 
 
 
+class TestOrderId(Resource):
+
+
+	def get(self):
+
+		order_id = MenuOrderModel.getOrderNumber()
+
+		return {'data': order_id}
 
 
 	

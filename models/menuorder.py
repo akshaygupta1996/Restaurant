@@ -10,7 +10,7 @@ class MenuOrderModel(db.Model):
 	__tablename__ = "menuorder"
 
 	id = db.Column(db.Integer, primary_key = True)
-	order_id = db.Column(db.String(10), unique = True)
+	order_id = db.Column(db.Integer)
 	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 	payment_id = db.Column(db.Integer, db.ForeignKey('payment.id'))
 	address_id = db.Column(db.Integer, db.ForeignKey('users_address.id'))
@@ -56,7 +56,10 @@ class MenuOrderModel(db.Model):
 
 		result = db.session.execute("SELECT MAX(order_id) + 1 as ord from menuorder where cast(date_time as Date) = '"+str(datetime.date.today()) + "';")
 		for r in result:
-			return str(r['ord'])
+			if r['ord'] is None:
+				return 1
+			else:
+				return int(r['ord'])
 		# ref = str(random.randint(100000, 999999))
 
 		# order = MenuOrderModel.find_by_code(ref)

@@ -9,7 +9,7 @@ from resources.menuitem import MenuItem, MenuItemEdit
 from resources.promocode import PromoCode, PromoCodeEdit, PromoCodeForAll
 from resources.userpromo import UserPromo, UserPromoEdit, CheckPromoAvailability, PromoCodeAtCheckOut
 from resources.taxes import Tax, TaxEdit
-from resources.menuorder import MenuOrderResource, MenuOrderResourceEdit, MenuOrderResourceEditRatings, MenuOrderForUsers
+from resources.menuorder import MenuOrderResource, MenuOrderResourceEdit, TestOrderId, MenuOrderResourceEditRatings, MenuOrderForUsers
 from resources.admin import LoginAdmin
 from resources.notification import NotificationConfirmOrder, NotificationKitchen, NotificationOutForDelivery
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
@@ -107,6 +107,7 @@ api.add_resource(NotificationConfirmOrder, '/confirmorder/<int:user_id>/<int:ord
 api.add_resource(NotificationKitchen, '/inkitchen/<int:user_id>/<int:order_id>')
 api.add_resource(NotificationOutForDelivery, '/outfordelivery/<int:user_id>/<int:order_id>')
 api.add_resource(DailyPaymentDetails, '/paymentanalytics/<string:dateone>/<string:datetwo>')
+api.add_resource(TestOrderId, '/testorder')
 
 if __name__ == '__main__':
 	# from db import db
