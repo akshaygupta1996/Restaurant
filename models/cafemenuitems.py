@@ -11,12 +11,11 @@ class CafeMenuItemsModel(db.Model):
 
 	id = db.Column(db.Integer, primary_key = True)
 	order_no  =db.Column(db.String(10), db.ForeignKey('cafemenu.id'))
-	menu_item_id = db.Column(db.Integer, db.ForeignKey('menuitem.id'))
+	menu_item_id = db.Column(db.Integer)
 	menu_qty = db.Column(db.Integer, nullable = False)
 	menu_amount = db.Column(db.Integer, nullable = False)
 	choice = db.Column(db.Integer, nullable = True)
 	cafemenuorder = db.relationship('CafeMenuOrder')
-	cafemenuitem = db.relationship('MenuItemModel')
 
 	def __init__(self,order_no, menu_item_id, menu_qty, menu_amount, choice):
 		self.order_no = order_no

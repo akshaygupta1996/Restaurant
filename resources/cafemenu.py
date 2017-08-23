@@ -86,6 +86,7 @@ class CafeMenuResorce(Resource):
 
 					try:
 						# mmodel.save_to_db()
+						print "Menu Try Block"
 						db.session.add(mmodel)
 						db.session.flush()
 						# db.session.commit()
