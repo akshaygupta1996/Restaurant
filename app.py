@@ -11,7 +11,7 @@ from resources.userpromo import UserPromo, UserPromoEdit, CheckPromoAvailability
 from resources.taxes import Tax, TaxEdit
 from resources.menuorder import MenuOrderResource, MenuOrderResourceEdit, TestOrderId, MenuOrderResourceEditRatings, MenuOrderForUsers
 from resources.admin import LoginAdmin
-from resources.cafemenu import CafeMenuResorce
+from resources.cafemenu import CafeMenuResorce, CafePaymentDone
 from resources.notification import NotificationConfirmOrder, NotificationKitchen, NotificationOutForDelivery
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from resources.paymentanalytics import DailyPaymentDetails
@@ -110,6 +110,7 @@ api.add_resource(NotificationOutForDelivery, '/outfordelivery/<int:user_id>/<int
 api.add_resource(DailyPaymentDetails, '/paymentanalytics/<string:dateone>/<string:datetwo>')
 api.add_resource(TestOrderId, '/testorder')
 api.add_resource(CafeMenuResorce, '/cafemenu')
+api.add_resource(CafePaymentDone, '/cafepaymentsuccess/<string:order_id>')
 
 if __name__ == '__main__':
 	# from db import db

@@ -54,9 +54,15 @@ class CafeMenuResorce(Resource):
 
 				order_id = CafeMenuOrder.getOrderNumber()
 
-				order = CafeMenuOrder(order_id, False, data['subtotal'], data['tax'], data['total'])
+				print data['menu']
+
+
+
+
+				order = CafeMenuOrder(order_id, data['payment'], data['subtotal'], data['tax'], data['total'])
 				try:
 					# order.save_to_db()
+					print "Try Block"
 					db.session.add(order)
 					db.session.flush()
 					# db.session.commit()
@@ -65,12 +71,15 @@ class CafeMenuResorce(Resource):
 
 
 				o_id = order.id
+				print o_id
 
 				menu = json.loads(data['menu'])
+				print menu
+				print len(menu)
 
 				for m in menu:
 
-					# print str(m)
+					print m
 					# m = json.loads(me)
 
 					mmodel = CafeMenuItemsModel(o_id, m['menu_id'], m['menu_qty'],m['menu_amount'], m['menu_choice'])
@@ -103,4 +112,20 @@ class CafeMenuResorce(Resource):
 		# 	db.session.rollback()
 		finally:
 			db.session.close()
+
+
+
+class CafePaymentDone(Resource):
+
+
+	def put(self, order_id):
+
+			order = CafeMenuOrder.find_by_code(order_id)
+			if order:
+				order.payment = True
+				order.save_to_db()
+
+				return {"data": {"status": True}}
+
+			return {"data": {"status": False}}
 
