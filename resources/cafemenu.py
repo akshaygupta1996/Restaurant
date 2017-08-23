@@ -11,12 +11,12 @@ from flask import jsonify
 import pyrebase
 import pytz
 
-config = {
-  "apiKey": "AIzaSyAkC3R1awnMDNSfSbYwFvOPkgO5mtnT1Dg",
-  "authDomain": "kmnorth-39c42.firebaseapp.com",
-  "databaseURL": "https://kmnorth-39c42.firebaseio.com",
-  "storageBucket": "gs://kmnorth-39c42.appspot.com"
-}
+# config = {
+#   "apiKey": "AIzaSyAkC3R1awnMDNSfSbYwFvOPkgO5mtnT1Dg",
+#   "authDomain": "kmnorth-39c42.firebaseapp.com",
+#   "databaseURL": "https://kmnorth-39c42.firebaseio.com",
+#   "storageBucket": "gs://kmnorth-39c42.appspot.com"
+# }
 
 class CafeMenuResorce(Resource):
 
@@ -96,10 +96,10 @@ class CafeMenuResorce(Resource):
 				# push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
  
 				# Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
-				firebase = pyrebase.initialize_app(config)
-				dbfirebase = firebase.database()
-				data = {"order": order.json(), "menu": menu, "datetime": str(datetime.datetime.now(pytz.timezone('Asia/Calcutta')))}
-				dbfirebase.child("cafeorders").child(str(order_id)).set(data)
+				# firebase = pyrebase.initialize_app(config)
+				# dbfirebase = firebase.database()
+				# data = {"order": order.json(), "menu": menu, "datetime": str(datetime.datetime.now(pytz.timezone('Asia/Calcutta')))}
+				# dbfirebase.child("cafeorders").child(str(order_id)).set(data)
 				# admin = AdminModel.find_by_username("admin")
 				# print admin.fcmtoken
 				# registration_id = admin.fcmtoken
