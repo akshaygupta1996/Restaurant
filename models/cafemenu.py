@@ -16,7 +16,7 @@ class CafeMenuOrder(db.Model):
 	subtotal = db.Column(db.Integer, nullable = False)
 	tax = db.Column(db.Float, nullable = False)
 	total = db.Column(db.Float, nullable = False)
-	cafemenuorderitem = db.relationship('CafeMenuItemsModel', lazy = 'dynamic')
+	# cafemenuorderitem = db.relationship('CafeMenuItemsModel', lazy = 'dynamic')
 
 
 	def __init__(self, order_id, payment, subtotal, tax, total):
