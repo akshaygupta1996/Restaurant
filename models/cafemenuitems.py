@@ -4,19 +4,19 @@ import datetime
 import random
 from flask_restful_swagger import swagger
 
-class MenuOrderItemModel(db.Model):
+class CafeMenuItemsModel(db.Model):
 
-	__tablename__ = "menuorderitems"
+	__tablename__ = "cafemenuitems"
 
 
 	id = db.Column(db.Integer, primary_key = True)
-	order_no  =db.Column(db.Integer, db.ForeignKey('menuorder.id'))
+	order_no  =db.Column(db.String(10), db.ForeignKey('cafemenu.id'))
 	menu_item_id = db.Column(db.Integer, db.ForeignKey('menuitem.id'))
 	menu_qty = db.Column(db.Integer, nullable = False)
 	menu_amount = db.Column(db.Integer, nullable = False)
 	choice = db.Column(db.Integer, nullable = True)
-	menuorder = db.relationship('MenuOrderModel')
-	menuitem = db.relationship('MenuItemModel')
+	cafemenuorder = db.relationship('CafeMenuOrder')
+	cafemenuitem = db.relationship('MenuItemModel')
 
 	def __init__(self,order_no, menu_item_id, menu_qty, menu_amount, choice):
 		self.order_no = order_no
