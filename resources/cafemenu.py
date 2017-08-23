@@ -50,11 +50,11 @@ class CafeMenuResorce(Resource):
 
 		try:
 
-			data = CafeMenuResorce.parser.parse_args()
+				data = CafeMenuResorce.parser.parse_args()
 
-			order_id = CafeMenuOrder.getOrderNumber()
+				order_id = CafeMenuOrder.getOrderNumber()
 
-			order = CafeMenuOrder(order_id, False, data['subtotal'], data['tax'], data['total'])
+				order = CafeMenuOrder(order_id, False, data['subtotal'], data['tax'], data['total'])
 				try:
 					# order.save_to_db()
 					db.session.add(order)
