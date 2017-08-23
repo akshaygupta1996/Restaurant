@@ -82,7 +82,7 @@ class CafeMenuResorce(Resource):
 					print m
 					# m = json.loads(me)
 
-					mmodel = CafeMenuItemsModel(str(o_id), m['menu_id'], m['menu_qty'],m['menu_amount'], m['menu_choice'])
+					mmodel = CafeMenuItemsModel(o_id, m['menu_id'], m['menu_qty'],m['menu_amount'], m['menu_choice'])
 
 					try:
 						# mmodel.save_to_db()

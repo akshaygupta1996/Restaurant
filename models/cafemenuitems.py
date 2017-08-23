@@ -10,7 +10,7 @@ class CafeMenuItemsModel(db.Model):
 
 
 	id = db.Column(db.Integer, primary_key = True)
-	order_no  =db.Column(db.String(10), db.ForeignKey('cafemenu.id'))
+	order_no  =db.Column(db.Integer, db.ForeignKey('cafemenu.id'))
 	menu_item_id = db.Column(db.Integer)
 	menu_qty = db.Column(db.Integer, nullable = False)
 	menu_amount = db.Column(db.Integer, nullable = False)
