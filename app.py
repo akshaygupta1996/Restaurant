@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from flask_restful_swagger import swagger
-from resources.users import Users, LoginUsers
+from resources.users import Users, LoginUsers, UserPhoneNumber
 from resources.address import UserAddress, UsersAddress
 from resources.menucat import MenuCategory, MenuCategoryEdit
 from resources.menumaincat import MenuMainCategory, MenuMainCategoryEdit, MenuItemsByMainCategory
@@ -111,6 +111,7 @@ api.add_resource(DailyPaymentDetails, '/paymentanalytics/<string:dateone>/<strin
 api.add_resource(TestOrderId, '/testorder')
 api.add_resource(CafeMenuResorce, '/cafemenu')
 api.add_resource(CafePaymentDone, '/cafepaymentsuccess/<string:order_id>')
+api.add_resource(UserPhoneNumber,'/changephonenumber/<int:user_id>/<string:alt_phone_number>')
 
 if __name__ == '__main__':
 	# from db import db

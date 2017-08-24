@@ -14,6 +14,7 @@ class UsersModel(db.Model):
 	lname = db.Column(db.String(20))
 	email = db.Column(db.String(80), unique = True)
 	phone_number = db.Column(db.String(10), unique = True)
+	alt_phone_number = db.Column(db.String(10))
 	password = db.Column(db.String(15), nullable = False)
 	refcode = db.Column(db.String(8), unique = True)
 	register_ref = db.Column(db.String(8), default = "00000000")
@@ -31,6 +32,7 @@ class UsersModel(db.Model):
 		self.lname = lname
 		self.email = email
 		self.phone_number = phone_number
+		self.alt_phone_number = phone_number
 		self.password = password
 		self.refcode = refcode
 		self.register_ref = register_ref
@@ -38,7 +40,7 @@ class UsersModel(db.Model):
 		self.fcmtoken = fcmtoken
 
 	def json(self):
-		return { 'id': self.id, 'fname': self.fname, 'lname': self.lname, 'email': self.email, 'phone_number': self.phone_number, 'refcode': self.refcode , 'fcmtoken': self.fcmtoken}
+		return { 'id': self.id, 'fname': self.fname, 'lname': self.lname, 'email': self.email, 'phone_number': self.phone_number, 'alt_phone_number':self.alt_phone_number, 'refcode': self.refcode , 'fcmtoken': self.fcmtoken}
 
 	@classmethod
 	def find_by_email(cls, email):

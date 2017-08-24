@@ -189,6 +189,7 @@ class LoginUsers(Resource):
 								 'fname': user_email.fname,
 								 'lname': user_email.lname,
 								 'email': user_email.email,
+								 'alt_phone_number': user_email.alt_phone_number,
 								 'phone_number': user_email.phone_number}}
    					  	return make_response(jsonify(ret), 200)
 			if flag == 1:
@@ -205,9 +206,23 @@ class LoginUsers(Resource):
 								 'fname': user_phone.fname,
 								 'lname': user_phone.lname,
 								 'email': user_phone.email,
+								 'alt_phone_number': user_phone.alt_phone_number,
 								 'phone_number': user_phone.phone_number}}
    					  	return make_response(jsonify(ret), 200)
 		
 			return {'status': False}, 200
 
 
+class UserPhoneNumber(Resource):
+
+	def put(self, user_id, alt_phone_number):
+
+		user = UsersModel.find_by_id(user_id)
+
+		if user:
+			user.alt_phone_number = alt_phone_number
+			user.save_to_db()
+			return {'data':{'status': True, 'user': user.json()}}
+
+		else:
+			return {"data": {"status": False}}
