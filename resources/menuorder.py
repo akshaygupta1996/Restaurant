@@ -8,6 +8,7 @@ from models.admin import AdminModel
 from models.users import UsersModel
 from models.address import UsersAddressModel
 from flask_restful_swagger import swagger
+from sqlalchemy import desc
 from pyfcm import FCMNotification
 import json
 import datetime
@@ -198,7 +199,7 @@ class MenuOrderForUsers(Resource):
 
 	def get(self, user_id):
 
-		orders = MenuOrderModel.query.filter_by(user_id = user_id).all()
+		orders = MenuOrderModel.query.filter_by(user_id = user_id).order_by(desc(MenuOrderModel.date_time)).all()
 
 		menuorder = []
 		payment = []
