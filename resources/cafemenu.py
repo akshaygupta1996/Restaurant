@@ -93,10 +93,14 @@ class CafeMenuResorce(Resource):
 						# mmodel.save_to_db()
 						#print "Menu Try Block"
 						db.session.add(mmodel)
+						print "Added"
 						db.session.flush()
+						print "Flush"
 						# db.session.commit()
 					except:
 						return {'data':{"status": False, "message": "Menu Item Save Failed"}}, 500
+
+					print "Menu Second"
 
 				db.session.commit()
 				# push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
