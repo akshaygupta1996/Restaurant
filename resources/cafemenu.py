@@ -79,12 +79,12 @@ class CafeMenuResorce(Resource):
 
 				for m in menu:
 
-					print "Menu"+m
-					print "Order Id"+o_id
-					print "Menu Id"+m["menu_id"]
-					print "Menu Qty"+m["menu_qty"]
-					print "Menu Amount"+m["menu_amount"]
-					print "Choice" + m["menu_choice"]
+					print m
+					print "Order Id"+str(o_id)
+					print "Menu Id"+str(m["menu_id"])
+					print "Menu Qty"+str(m["menu_qty"])
+					print "Menu Amount"+str(m["menu_amount"])
+					print "Choice" + str(m["menu_choice"])
 					# m = json.loads(me)
 
 					mmodel = CafeMenuItemsModel(o_id, m['menu_id'], m['menu_qty'],m['menu_amount'], m['menu_choice'])
