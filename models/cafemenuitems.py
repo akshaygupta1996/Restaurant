@@ -14,7 +14,7 @@ class CafeMenuItemsModel(db.Model):
 	menu_item_id = db.Column(db.Integer, nullable = False)
 	menu_qty = db.Column(db.Integer, nullable = False)
 	menu_amount = db.Column(db.Integer, nullable = False)
-	choice = db.Column(db.Integer)
+	choice = db.Column(db.Integer, nullable = False)
 	# cafemenuorder = db.relationship('CafeMenuOrder')
 
 	def __init__(self,order_no, menu_item_id, menu_qty, menu_amount, choice):
