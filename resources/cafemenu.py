@@ -80,13 +80,18 @@ class CafeMenuResorce(Resource):
 				for m in menu:
 
 					print m
+					print o_id
+					print m["menu_id"]
+					print m["menu_qty"]
+					print m["menu_amount"]
+					print m["menu_choice"]
 					# m = json.loads(me)
 
 					mmodel = CafeMenuItemsModel(o_id, m['menu_id'], m['menu_qty'],m['menu_amount'], m['menu_choice'])
 
 					try:
 						# mmodel.save_to_db()
-						print "Menu Try Block"
+						#print "Menu Try Block"
 						db.session.add(mmodel)
 						db.session.flush()
 						# db.session.commit()
