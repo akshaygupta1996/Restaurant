@@ -15,7 +15,7 @@ from resources.cafemenu import CafeMenuResorce, CafePaymentDone
 from resources.notification import NotificationConfirmOrder, NotificationKitchen, NotificationOutForDelivery
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from resources.paymentanalytics import DailyPaymentDetails
-from resources.cafemenu import CafeItemsTest
+from resources.cafemenu import CafeItemsTest, CafeBookingPaymentConfirmed
 from security import authenticate, identity
 from flask_jwt import JWT
 import os
@@ -114,6 +114,7 @@ api.add_resource(CafeMenuResorce, '/cafemenu')
 api.add_resource(CafePaymentDone, '/cafepaymentsuccess/<string:order_id>')
 api.add_resource(UserPhoneNumber,'/changephonenumber/<int:user_id>/<string:alt_phone_number>')
 api.add_resource(CafeItemsTest, '/cafeitemtest')
+api.add_resource(CafeBookingPaymentConfirmed, '/cafepaymentconfirm/<int:order_id>')
 
 if __name__ == '__main__':
 	# from db import db

@@ -11,12 +11,12 @@ from flask import jsonify
 import pyrebase
 import pytz
 
-# config = {
-#   "apiKey": "AIzaSyAkC3R1awnMDNSfSbYwFvOPkgO5mtnT1Dg",
-#   "authDomain": "kmnorth-39c42.firebaseapp.com",
-#   "databaseURL": "https://kmnorth-39c42.firebaseio.com",
-#   "storageBucket": "gs://kmnorth-39c42.appspot.com"
-# }
+config = {
+  "apiKey": "AIzaSyAkC3R1awnMDNSfSbYwFvOPkgO5mtnT1Dg",
+  "authDomain": "kmnorth-39c42.firebaseapp.com",
+  "databaseURL": "https://kmnorth-39c42.firebaseio.com",
+  "storageBucket": "gs://kmnorth-39c42.appspot.com"
+}
 
 class CafeMenuResorce(Resource):
 
@@ -149,6 +149,23 @@ class CafeItemsTest(Resource):
 
 		mmodel = CafeMenuItemsModel(33,4,1,50,0)
 		mmodel.save_to_db()
+
+
+
+class CafeBookingPaymentConfirmed(Resource):
+
+
+
+	def put(self, order_id):
+
+		order = CafeMenuOrder.find_by_id(order_id)
+		if order:
+			order.payment = True
+			order.save_to_db()
+
+			return {"data": {"status": True}}
+		else:
+			return {"data": {"status": False}}
 
 
 
