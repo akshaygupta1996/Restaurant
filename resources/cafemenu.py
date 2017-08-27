@@ -63,9 +63,9 @@ class CafeMenuResorce(Resource):
 				try:
 					# order.save_to_db()
 					# print "Try Block"
-					# db.session.add(order)
-					# db.session.flush()
-					order.save_to_db()
+					db.session.add(order)
+					db.session.flush()
+					# order.save_to_db()
 					# db.session.commit()
 				except:
 					return {'data':{"status": False, "message": "Order Failed"}}, 500
@@ -93,10 +93,10 @@ class CafeMenuResorce(Resource):
 					try:
 						# mmodel.save_to_db()
 						#print "Menu Try Block"
-						mmodel.save_to_db()
-						# db.session.add(mmodel)
+						# mmodel.save_to_db()
+						db.session.add(mmodel)
 						# print "Added"
-						# db.session.flush()
+						db.session.flush()
 						# print "Flush"
 						# db.session.commit()
 					except:
@@ -104,20 +104,20 @@ class CafeMenuResorce(Resource):
 
 					print "Menu Second"
 
-				# db.session.commit()
-				# push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
+				db.session.commit()
+				push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
  
 				# Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
-				# firebase = pyrebase.initialize_app(config)
-				# dbfirebase = firebase.database()
-				# data = {"order": order.json(), "menu": menu, "datetime": str(datetime.datetime.now(pytz.timezone('Asia/Calcutta')))}
-				# dbfirebase.child("cafeorders").child(str(order_id)).set(data)
-				# admin = AdminModel.find_by_username("admin")
-				# print admin.fcmtoken
-				# registration_id = admin.fcmtoken
-				# message_title = "New Order"
-				# message_body = "A new Cafe Food order has arrived..!! Confirm the order "
-				# push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
+				firebase = pyrebase.initialize_app(config)
+				dbfirebase = firebase.database()
+				data = {"order": order.json(), "menu": menu, "datetime": str(datetime.datetime.now(pytz.timezone('Asia/Calcutta')))}
+				dbfirebase.child("cafeorders").child(str(order_id)).set(data)
+				admin = AdminModel.find_by_username("admin")
+				print admin.fcmtoken
+				registration_id = admin.fcmtoken
+				message_title = "New Order"
+				message_body = "A new Cafe Food order has arrived..!! Confirm the order "
+				push_service.notify_single_device(registration_id=registration_id, message_title=message_title, message_body=message_body)
  
 				return {'data': {"status": True, "order": order.json() ,"menu": menu}}
 		# except:
@@ -140,4 +140,16 @@ class CafePaymentDone(Resource):
 				return {"data": {"status": True}}
 
 			return {"data": {"status": False}}
+
+
+class CafeItemsTest(Resource):
+
+
+	def post(self):
+
+		mmodel = CafeMenuItemsModel(33,4,1,50,0)
+		mmodel.save_to_db()
+
+
+
 
