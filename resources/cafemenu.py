@@ -62,9 +62,10 @@ class CafeMenuResorce(Resource):
 				order = CafeMenuOrder(order_id, data['payment'], data['subtotal'], data['tax'], data['total'])
 				try:
 					# order.save_to_db()
-					print "Try Block"
-					db.session.add(order)
-					db.session.flush()
+					# print "Try Block"
+					# db.session.add(order)
+					# db.session.flush()
+					order.save_to_db()
 					# db.session.commit()
 				except:
 					return {'data':{"status": False, "message": "Order Failed"}}, 500
@@ -92,17 +93,18 @@ class CafeMenuResorce(Resource):
 					try:
 						# mmodel.save_to_db()
 						#print "Menu Try Block"
-						db.session.add(mmodel)
-						print "Added"
-						db.session.flush()
-						print "Flush"
+						mmodel.save_to_db()
+						# db.session.add(mmodel)
+						# print "Added"
+						# db.session.flush()
+						# print "Flush"
 						# db.session.commit()
 					except:
 						return {'data':{"status": False, "message": "Menu Item Save Failed"}}, 500
 
 					print "Menu Second"
 
-				db.session.commit()
+				# db.session.commit()
 				# push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
  
 				# Your api-key can be gotten from:  https://console.firebase.google.com/project/<project-name>/settings/cloudmessaging
