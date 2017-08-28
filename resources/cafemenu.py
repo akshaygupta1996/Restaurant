@@ -2,6 +2,7 @@ from flask_restful import Resource, reqparse
 from flask import request
 from models.cafemenu import CafeMenuOrder
 from models.cafemenuitems import CafeMenuItemsModel
+from models.admin import AdminModel
 from flask_restful_swagger import swagger
 from pyfcm import FCMNotification
 import json
