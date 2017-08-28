@@ -49,7 +49,7 @@ class CafeMenuOrder(db.Model):
 			if r['ord'] is None:
 				return "O1"
 			else:
-				return "O"+int(r['ord'])
+				return "O"+str(int(r['ord']))
 		# ref = str(random.randint(100000, 999999))
 
 		# order = MenuOrderModel.find_by_code(ref)
