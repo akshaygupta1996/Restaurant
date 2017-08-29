@@ -4,6 +4,8 @@ from models.users import UsersModel
 from models.userpromo import UserPromoModel
 from flask_restful_swagger import swagger
 from db import db
+
+import requests
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 
 import firebase_admin
@@ -225,4 +227,20 @@ class UserPhoneNumber(Resource):
 			return {'data':{'status': True, 'user': user.json()}}
 
 		else:
+			return {"data": {"status": False}}
+
+
+
+class ForgetPassword(Resource):
+
+	def get(self, phone_number):
+
+
+		user = UsersModel.find_by_phone(phone_number)
+		if user:
+			password = user.password
+			r = requests.get('http://roundsms.com/api/sendhttp.php?authkey=NGUwNDYxZmNiY2N&mobiles='+str(phone_number)+'&Your password for KM NORTH '+password+'.&sender=KMNORT&type=1&route=2')
+			return {"data": {"status": True, "res": r.json()}}
+		else:
+
 			return {"data": {"status": False}}
