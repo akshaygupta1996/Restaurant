@@ -3,6 +3,7 @@ from flask import request
 from models.cafemenu import CafeMenuOrder
 from models.cafemenuitems import CafeMenuItemsModel
 from models.admin import AdminModel
+from models.menuitem import MenuItemModel
 from flask_restful_swagger import swagger
 from pyfcm import FCMNotification
 import json
@@ -138,6 +139,11 @@ class CafePaymentDone(Resource):
 				order.payment = True
 				order.save_to_db()
 
+				firebase = pyrebase.initialize_app(config)
+				dbfirebase = firebase.database()
+			# k = dbfirebase.child("orders").child(order_id).child().get()
+				dbfirebase.child("cafeorders").child(order.order_id).child("order").update({'payment': '1'})
+
 				return {"data": {"status": True}}
 
 			return {"data": {"status": False}}
@@ -163,10 +169,55 @@ class CafeBookingPaymentConfirmed(Resource):
 		if order:
 			order.payment = True
 			order.save_to_db()
+			firebase = pyrebase.initialize_app(config)
+			dbfirebase = firebase.database()
+			# k = dbfirebase.child("orders").child(order_id).child().get()
+			dbfirebase.child("cafeorders").child(order.order_id).child("order").update({'payment': True})
+
 
 			return {"data": {"status": True}}
 		else:
 			return {"data": {"status": False}}
+
+
+class CafeOrders(Resource):
+
+	def get(self, date):
+
+
+		result = db.session.execute("Select * from cafemenu where cast(date_time as date) = '"+date+"';");
+
+		orders = []
+		menu = []
+
+		for r in result:
+			o = dict()
+			o['id'] = r['id']
+			o['order_id'] = str(r['order_id'])
+			o['payment'] = r['payment']
+			o['subtotal'] = r['subtotal']
+			o['tax'] = r['tax']
+			o['total'] = r['total']
+			o['date_time'] = str(r['date_time'])
+			orders.append(o)
+			menuitems = CafeMenuItemsModel.query.filter_by(order_no = r['id']).all()
+			items = []
+			for m in menuitems:
+				menuitem = MenuItemModel.query.filter_by(id = m.menu_item_id).first()
+
+				item = {'menu_id': m.id, 'menu_qty': m.menu_qty, 'menu_amount': m.menu_amount, 'menu_choice': m.choice, 'menu_name': menuitem.name, 'menu_choice_one': menuitem.choice_one, 'menu_choice_two': menuitem.choice_two, 'menu_description': menuitem.description}
+				items.append(item)
+			menu.append(items)
+
+
+		fuck_all_order = [{"order": o, "menu": m} for o,m in zip(orders, menu)]
+		return {'data':{'status': True, 'menu': fuck_all_order}}
+
+
+
+
+
+
 
 
 
