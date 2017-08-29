@@ -99,7 +99,7 @@ class Users(Resource):
 		if data['register_ref'] == "0":
 			
 			refcode = UsersModel.getRefCode(data['fname'])
-			user = UsersModel(data['fname'], data['lname'], data['email'], data['phone_number'], data['password'],refcode, data['register_ref'],0)
+			user = UsersModel(data['fname'], data['lname'], data['email'], data['phone_number'], data['password'],refcode, data['register_ref'],0,"fcm")
 			try:
 				user.save_to_db()
 			except:
@@ -133,7 +133,7 @@ class Users(Resource):
 					except:
 						return {'message': "User promo table Error"}, 500
 					refcode = UsersModel.getRefCode(data['fname'])
-					user = UsersModel(data['fname'], data['lname'], data['email'], data['phone_number'], data['password'],refcode, data['register_ref'],0)
+					user = UsersModel(data['fname'], data['lname'], data['email'], data['phone_number'], data['password'],refcode, data['register_ref'],0,"fcm")
 
 					try:
 						user.save_to_db()
