@@ -84,7 +84,7 @@ class NotificationOutForDelivery(Resource):
 			dbfirebase = firebase.database()
 			dbfirebase.child("orders").child(order_id).update({'status': '3'})
 			push_service = FCMNotification(api_key="AAAABnCMzP4:APA91bHf4jst14Er5BrZMC9fOVVRGtMUVkPF7VYUI8t3BWbReJJbH_KYui8TIjITnTGZTq8HoKRPztnBsSXAD07m-JA1Tv1Wf6-I4P8gy3coaeMzJpG2K2alBF9iOHJQjbtQhjXuxzFo")
-			# message_title = fname + " " + lname
+			message_title = fname + " " + lname
 			message_body = " Your Order is out for delivery.. You can track the delivery boy..."
 			push_service.notify_single_device(registration_id=fcmtoken, message_title=message_title, message_body=message_body)
  				

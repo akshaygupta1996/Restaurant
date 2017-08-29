@@ -111,9 +111,10 @@ class PromoCodeAtCheckOut(Resource):
 
 		date = datetime.now().date()
 
+		promolist = []
 		for item in UserPromoModel.query.filter(UserPromoModel.user_id == user_id, UserPromoModel.userpromo_used == False,UserPromoModel.userpromo_validity >= date):
 
-			promolist = []
+			
 			promo_code = item.promo_code
 			promo = PromoCodeModel.find_by_promo_code(promo_code)
 			if promo:
