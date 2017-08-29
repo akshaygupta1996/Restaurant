@@ -54,8 +54,12 @@ class MenuOrderModel(db.Model):
 	@classmethod
 	def getOrderNumber(cls):
 
-		db.session.execute("SET @@time_zone = '+5:30';")
-		result = db.session.execute("SELECT MAX(order_id) + 1 as ord from menuorder where cast(date_time as Date) = current_date();")
+		now = datetime.datetime.now(pytz.timezone('Asia/Calcutta'))
+		d= now.day
+		m = now.month
+		y = now.year
+		date = str(y)+'-'+str(m)+'-'+str(d)
+		result = db.session.execute("SELECT MAX(order_id) + 1 as ord from menuorder where cast(date_time as Date) ='"+date+"';")
 		for r in result:
 			if r['ord'] is None:
 				return 1

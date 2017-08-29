@@ -32,3 +32,7 @@ class SendOtpTest(Resource):
 		
 		return {"data": {"res":r.json(), "otp": otp}}
 
+
+
+	
+
