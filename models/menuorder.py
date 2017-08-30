@@ -59,6 +59,7 @@ class MenuOrderModel(db.Model):
 		m = now.month
 		y = now.year
 		date = str(y)+'-'+str(m)+'-'+str(d)
+		print date
 		result = db.session.execute("SELECT MAX(order_id) + 1 as ord from menuorder where cast(date_time as Date) ='"+date+"';")
 		for r in result:
 			if r['ord'] is None:
