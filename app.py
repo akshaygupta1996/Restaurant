@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Api
 from flask_restful_swagger import swagger
-from resources.users import Users, LoginUsers, UserPhoneNumber, ForgetPassword
+from resources.users import Users, LoginUsers, UserPhoneNumber, ForgetPassword, ChangePassword
 from resources.address import UserAddress, UsersAddress
 from resources.menucat import MenuCategory, MenuCategoryEdit
 from resources.menumaincat import MenuMainCategory, MenuMainCategoryEdit, MenuItemsByMainCategory
@@ -119,6 +119,7 @@ api.add_resource(CafeBookingPaymentConfirmed, '/cafepaymentconfirm/<int:order_id
 api.add_resource(CafeOrders, '/cafeorders/<string:date>')
 api.add_resource(SendOtpTest,'/sendotp/<string:phone_number>')
 api.add_resource(ForgetPassword, '/forgetpassword/<string:phone_number>')
+api.add_resource(ChangePassword, '/changepassword/<int:user_id>/<string:password>/<string:new_password>')
 
 if __name__ == '__main__':
 	# from db import db

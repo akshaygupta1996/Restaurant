@@ -191,6 +191,7 @@ class LoginUsers(Resource):
 								 'fname': user_email.fname,
 								 'lname': user_email.lname,
 								 'email': user_email.email,
+								 'refcode': user_email.refcode,
 								 'alt_phone_number': user_email.alt_phone_number,
 								 'phone_number': user_email.phone_number}}
    					  	return make_response(jsonify(ret), 200)
@@ -208,6 +209,7 @@ class LoginUsers(Resource):
 								 'fname': user_phone.fname,
 								 'lname': user_phone.lname,
 								 'email': user_phone.email,
+								 'refcode': user_phone.refcode,
 								 'alt_phone_number': user_phone.alt_phone_number,
 								 'phone_number': user_phone.phone_number}}
    					  	return make_response(jsonify(ret), 200)
@@ -244,3 +246,22 @@ class ForgetPassword(Resource):
 		else:
 
 			return {"data": {"status": False}}
+
+class ChangePassword(Resource):
+
+	def put(self, user_id, password, new_password):
+
+		user = UsersModel.find_by_id(user_id)
+		if user is not None:
+
+			if user.password == password:
+
+				user.password = new_password
+				try:
+					user.save_to_db()
+					return {"data":{"status": True}}
+				except:
+					return {"data": {"status": False}}
+
+
+		return {"data": {"status": False}}
