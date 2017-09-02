@@ -16,6 +16,7 @@ from resources.notification import NotificationConfirmOrder, NotificationKitchen
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
 from resources.paymentanalytics import DailyPaymentDetails
 from resources.sendotp import SendOtpTest
+from resources.menuanalytics import MenuAnalyticsBetweenDates
 from resources.cafemenu import CafeItemsTest, CafeBookingPaymentConfirmed, CafeOrders
 from security import authenticate, identity
 from flask_jwt import JWT
@@ -59,8 +60,9 @@ db = models.db
 
 # # 'mysql+pymysql://flaskdemo:flaskdemo@flaskdemo.cwsaehb7ywmi.us-east-1.rds.amazonaws.com:3306/flaskdemo'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/kmnorth2'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://akki7272:akki7272@fooddelivery.ceckddzhbyhp.us-west-2.rds.amazonaws.com:3306/kmnorth2'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://akki7272:akki7272@fooddelivery.ceckddzhbyhp.us-west-2.rds.amazonaws.com:3306/kmnorth2'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://akshay7272:akshay7272@kmnorth2.ceckddzhbyhp.us-west-2.rds.amazonaws.com:3306/km'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://kmnorth007:kmnorth007@kmnorth.crx51qhsnwjl.us-east-2.rds.amazonaws.com:3306/kmnorth2'
 
  # application.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://kmnorth7272:kmnorth7272@kmnorth-cluster.cluster-cjyjj0rgxaie.us-west-2.rds.amazonaws.com:3306/kmnorth'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -118,6 +120,7 @@ api.add_resource(CafeItemsTest, '/cafeitemtest')
 api.add_resource(CafeBookingPaymentConfirmed, '/cafepaymentconfirm/<int:order_id>')
 api.add_resource(CafeOrders, '/cafeorders/<string:date>')
 api.add_resource(SendOtpTest,'/sendotp/<string:phone_number>')
+api.add_resource(MenuAnalyticsBetweenDates, '/menubetweendates/<string:date1>/<string:date2>')
 api.add_resource(ForgetPassword, '/forgetpassword/<string:phone_number>')
 api.add_resource(ChangePassword, '/changepassword/<int:user_id>/<string:password>/<string:new_password>')
 
